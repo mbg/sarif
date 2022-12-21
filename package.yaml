@@ -1,0 +1,35 @@
+name: sarif
+version: 0.1
+github: "mbg/sarif"
+license: MIT
+author: "Michael B. Gale"
+maintainer: "github@michael-gale.co.uk"
+copyright: "Copyright (c) Michael B. Gale"
+
+category: Data
+synopsis: "SARIF implementation for Haskell"
+description: "Provides types and JSON instances for the Static Analysis Results Interchange Format (SARIF)."
+
+extra-source-files:
+  - README.md
+  - CHANGELOG.md
+
+default-extensions:
+  - DeriveAnyClass
+  - DeriveGeneric
+  - OverloadedStrings
+  - RecordWildCards
+
+dependencies:
+  - base >= 4.8 && < 5
+  - aeson
+  - bytestring
+  - containers
+  - text
+  - uuid-types
+
+library:
+  source-dirs: src
+  ghc-options:
+    - -Wall
+    - -Werror
