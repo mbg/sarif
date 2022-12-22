@@ -1,5 +1,5 @@
-# Changelog for `wai-saml2`
+# Changelog for `sarif`
 
-## Unreleased
+## 0.1 - 22 December 2022
 
-* Initial implementation
+* First release with an initial implementation of some key aspects of the SARIF specification
