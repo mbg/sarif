@@ -47,7 +47,7 @@ library
       DeriveGeneric
       OverloadedStrings
       RecordWildCards
-  ghc-options: -Wall -Werror
+  ghc-options: -Wall
   build-depends:
       aeson
     , base >=4.8 && <5
