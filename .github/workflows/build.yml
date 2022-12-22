@@ -15,8 +15,26 @@ on:
       - main
 
 jobs:
+  hlint:
+    name: "HLint"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Set up HLint"
+        uses: haskell/actions/hlint-setup@v2
+        with:
+          version: "3.1.6"
+
+      - name: "Run HLint"
+        uses: haskell/actions/hlint-run@v2
+        with:
+          path: src/
+          fail-on: warning
+
   build:
-    name: "All"
+    name: "Build"
     strategy:
       fail-fast: false
       matrix:
@@ -33,7 +51,7 @@ jobs:
         with:
           stack-no-global: true
           enable-stack: true
-          stack-version: 'latest'
+          stack-version: "latest"
 
       - name: Cache .stack
         id: cache-stack
