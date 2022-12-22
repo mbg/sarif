@@ -1,0 +1,60 @@
+name: "Build"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/**"
+      - "src/**"
+      - "package.yaml"
+      - "*.cabal"
+      - "stack*.yaml"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        resolver:
+          - stack-ghc-8.10.7
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: haskell/actions/setup@v2
+        id: install-haskell
+        with:
+          stack-no-global: true
+          enable-stack: true
+          stack-version: 'latest'
+
+      - name: Cache .stack
+        id: cache-stack
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.install-haskell.outputs.stack-root }}
+          key: ${{ runner.os }}-${{ matrix.resolver }}-${{ hashFiles(format('{0}.yaml', matrix.resolver)) }}-${{ hashFiles('sarif.cabal') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.resolver }}-${{ hashFiles(format('{0}.yaml', matrix.resolver)) }}-
+            ${{ runner.os }}-${{ matrix.resolver }}-
+
+      - name: Install dependencies
+        run: stack --stack-yaml=${{ matrix.resolver }}.yaml --no-terminal build --test --haddock --only-dependencies --fast
+
+      - name: Build
+        run: |
+          stack --stack-yaml=${{ matrix.resolver }}.yaml --no-terminal build --fast \
+            --test --no-run-tests \
+            --haddock --haddock-arguments='-odocs'
+
+      - name: Upload documentation
+        uses: actions/upload-artifact@v3
+        with:
+          name: docs-${{ matrix.resolver }}
+          path: docs/
