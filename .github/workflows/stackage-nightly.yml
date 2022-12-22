@@ -1,0 +1,26 @@
+name: "Stackage"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "5 6 * * *"
+
+jobs:
+  nightly:
+    name: "Nightly"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: haskell/actions/setup@v2
+        id: install-haskell
+        with:
+          stack-no-global: true
+          enable-stack: true
+          stack-version: 'latest'
+
+      - name: Build with the nightly snapshot
+        run: |
+          rm -f stack.yaml && stack init --resolver nightly
+          stack build --resolver nightly --haddock --test --bench --no-run-benchmarks
