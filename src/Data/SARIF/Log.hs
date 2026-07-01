@@ -6,53 +6,52 @@
 --------------------------------------------------------------------------------
 
 -- | Provides the top-level structure of SARIF.
-module Data.SARIF.Log (
-    Log(..),
-    defaultLog,
+module Data.SARIF.Log
+  ( Log (..),
     decodeSarifFileStrict,
-    encodeSarifAsLBS
-) where
+    encodeSarifAsLBS,
+  )
+where
 
 --------------------------------------------------------------------------------
 
-import Data.Aeson
+import Data.Aeson.Optional
 import qualified Data.ByteString.Lazy as LBS
+import Data.SARIF.ExternalPropertyFileReferences
+import Data.SARIF.Run
 import Data.Text
-
-import Data.SARIF.Run (Run(..))
 
 --------------------------------------------------------------------------------
 
 -- | Each SARIF file contains one `Log` value at the top.
-data Log = MkLog {
-    -- | The version identifier of the SARIF format used by the file.
+data Log = MkLog
+  { -- | The version identifier of the SARIF format used by the file.
     logVersion :: Text,
+    -- | An absolute URI to the JSON schema describing the SARIF format version of this log file.
+    logSchema :: Maybe Text,
     -- | A list of descriptions of runs of static analysis tools.
-    logRuns :: [Run]
-} deriving (Eq, Show)
-
--- | The URL of the JSON schema that describes SARIF.
-schemaUrl :: Text
-schemaUrl = "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json"
+    logRuns :: Maybe [Run],
+    -- | The inlineExternalProperties property of the log
+    logProperties :: Maybe ExternalPropertyFileReferences
+  }
+  deriving (Eq, Show, Ord)
 
 instance ToJSON Log where
-    toJSON MkLog{..} = object
-        [ "version" .= logVersion
-        , "runs" .= logRuns
-        , "$schema" .= schemaUrl
-        ]
+  toJSON MkLog {..} =
+    object
+      [ "version" .= logVersion,
+        "runs" .=? logRuns,
+        "$schema" .=? logSchema,
+        "inlineExternalProperties" .=? logProperties
+      ]
 
 instance FromJSON Log where
-    parseJSON = withObject "Log" $ \obj ->
-        MkLog <$> obj .: "version"
-              <*> obj .: "runs"
-
--- | Represents a default `Log` value.
-defaultLog :: Log
-defaultLog = MkLog{
-    logVersion = "2.1.0",
-    logRuns = []
-}
+  parseJSON = withObject "Log" $ \obj ->
+    MkLog
+      <$> obj .: "version"
+      <*> obj .:? "$schema"
+      <*> obj .:? "runs"
+      <*> obj .:? "inlineExternalProperties"
 
 -- | `decodeSarifFileStrict` @filepath@ is a type-specialised version of
 -- `eitherDecodeFileStrict` for `Log`.

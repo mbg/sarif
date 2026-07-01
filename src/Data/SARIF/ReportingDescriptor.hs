@@ -4,107 +4,91 @@
 -- This source code is licensed under the MIT license found in the LICENSE    --
 -- file in the root directory of this source tree.                            --
 --------------------------------------------------------------------------------
+{-# LANGUAGE ScopedTypeVariables #-}
 
--- | Provides the `ReportingDescriptor` type, which is essentially used to
--- represent descriptions of rules that a static analysis tool has applied.
-module Data.SARIF.ReportingDescriptor (
-    ReportingConfiguration(..),
-    defaultReportingConfiguration,
-    ReportingDescriptor(..),
-    defaultReportingDescriptor
-) where
+module Data.SARIF.ReportingDescriptor
+  ( ReportingDescriptor (..),
+  )
+where
 
 --------------------------------------------------------------------------------
 
 import Data.Aeson.Optional
-import qualified Data.Map.Lazy as M
-import Data.Text
-
-import Data.SARIF.Level
+import Data.Map.Strict
 import Data.SARIF.MultiformatMessageString
+import Data.SARIF.ReportingConfiguration
+import Data.SARIF.ReportingDescriptorRelationship
+import Data.Text
+import Data.UUID.Types
 
---------------------------------------------------------------------------------
-
--- | Represents default configurations for `ReportingDescriptor` values. That is
--- properties which may be overriden by individual results.
-newtype ReportingConfiguration = MkReportingConfiguration {
-    -- | The default severity of the reporting descriptor.
-    rcLevel :: Maybe Level
-} deriving (Eq, Show)
-
-instance ToJSON ReportingConfiguration where
-    toJSON MkReportingConfiguration{..} = object
-        [ "level" .=? rcLevel
-        ]
-instance FromJSON ReportingConfiguration where
-    parseJSON = withObject "ReportingConfiguration" $ \obj ->
-        MkReportingConfiguration <$> obj .: "level"
-
--- | `defaultReportingConfiguration` is a default
--- `ReportingConfiguration` value.
-defaultReportingConfiguration :: ReportingConfiguration
-defaultReportingConfiguration = MkReportingConfiguration{
-    rcLevel = Nothing
-}
-
--- | Represents rules that a static analysis tool
-data ReportingDescriptor = MkReportingDescriptor {
-    -- | The unique ID of the rule.
-    rdId :: Text,
+data ReportingDescriptor = MkReportingDescriptor
+  { -- | The unique ID of the rule.
+    reportingDescriptorId :: Text,
+    -- | Previously used IDs for the rule.
+    reportingDescriptorDeprecatedIds :: Maybe [Text],
+    -- | A GUID which identifies the ReportingDescriptor.
+    reportingDescriptorGuid :: Maybe UUID,
+    -- | A list of deprecated GUIDs which previously identified the rule.
+    reportingDescriptorDeprecatedGuids :: Maybe [UUID],
     -- | A friendly name for the rule, which should be one word in
     -- upper camel case.
-    rdName :: Maybe Text,
+    reportingDescriptorName :: Maybe Text,
+    -- | A list of names for the rule that were previously used.
+    reportingDescriptorDeprecatedNames :: Maybe [Text],
     -- | A short description for the rule, which may contain spaces
     -- and symbols.
-    rdShortDescription :: Maybe MultiformatMessageString,
+    reportingDescriptorShortDescription :: Maybe MultiformatMessageString,
     -- | The full description.
-    rdFullDescription :: Maybe MultiformatMessageString,
+    reportingDescriptorFullDescription :: Maybe MultiformatMessageString,
+    -- | A mapping from arbitrary name to its corresponding message string.
+    reportingDescriptorMessageStrings :: Maybe (Map Text MultiformatMessageString),
     -- | A URL to some help for this rule.
-    rdHelpUri :: Maybe Text,
+    reportingDescriptorHelpUri :: Maybe Text,
     -- | A recommendation for what to do in order to resolve an occurrence
     -- of this rule.
-    rdHelp :: Maybe MultiformatMessageString,
+    reportingDescriptorHelp :: Maybe MultiformatMessageString,
     -- | The default reporting configuration for the rule.
-    rdDefaultConfiguration :: Maybe ReportingConfiguration,
+    reportingDescriptorDefaultConfiguration :: Maybe ReportingConfiguration,
     -- | Extra properties for this rule.
-    rdProperties :: M.Map Text Value
-} deriving (Eq, Show)
+    reportingDescriptorRelationships :: Maybe ReportingDescriptorRelationship,
+    -- | The properties property of the ReportingDescriptor object
+    reportingDescriptorProperties :: Maybe (Map Text Value)
+  }
+  deriving (Eq, Show, Ord)
 
 instance ToJSON ReportingDescriptor where
-    toJSON MkReportingDescriptor{..} = object
-        [ "id" .= rdId
-        , "name" .=? rdName
-        , "shortDescription" .=? rdShortDescription
-        , "fullDescription" .=? rdFullDescription
-        , "helpUri" .=? rdHelpUri
-        , "help" .=? rdHelp
-        , "defaultConfiguration" .=? rdDefaultConfiguration
-        , "properties" .= rdProperties
-        ]
+  toJSON MkReportingDescriptor {..} =
+    object
+      [ "id" .= reportingDescriptorId,
+        "deprecatedIds" .=? reportingDescriptorDeprecatedIds,
+        "guid" .=? reportingDescriptorGuid,
+        "deprecatedGuids" .=? reportingDescriptorDeprecatedGuids,
+        "name" .=? reportingDescriptorName,
+        "deprecatedNames" .=? reportingDescriptorDeprecatedNames,
+        "shortDescription" .=? reportingDescriptorShortDescription,
+        "fullDescription" .= reportingDescriptorFullDescription,
+        "messageStrings" .=? reportingDescriptorMessageStrings,
+        "helpUri" .=? reportingDescriptorHelpUri,
+        "help" .=? reportingDescriptorHelp,
+        "defaultConfiguration" .=? reportingDescriptorDefaultConfiguration,
+        "relationships" .=? reportingDescriptorRelationships,
+        "properties" .=? reportingDescriptorProperties
+      ]
 
 instance FromJSON ReportingDescriptor where
-    parseJSON = withObject "ReportingDescriptor" $ \obj ->
-        MkReportingDescriptor <$> obj .: "id"
-                              <*> obj .:? "name"
-                              <*> obj .:? "shortDescription"
-                              <*> obj .:? "fullDescription"
-                              <*> obj .:? "helpUri"
-                              <*> obj .:? "help"
-                              <*> obj .:? "defaultConfiguration"
-                              <*> obj .: "properties" .!= M.empty
-
--- | `defaultReportingDescriptor` @id@ constructs a default
--- `ReportingDescriptor` with the given @id@, which must be unique.
-defaultReportingDescriptor :: Text -> ReportingDescriptor
-defaultReportingDescriptor ident = MkReportingDescriptor{
-    rdId = ident,
-    rdName = Nothing,
-    rdShortDescription = Nothing,
-    rdFullDescription = Nothing,
-    rdHelpUri = Nothing,
-    rdHelp = Nothing,
-    rdDefaultConfiguration = Nothing,
-    rdProperties = M.empty
-}
-
---------------------------------------------------------------------------------
+  parseJSON = withObject "ReportingDescriptor" $ \obj ->
+    MkReportingDescriptor
+      <$> obj .: "id"
+      <*> obj .:? "deprecatedIds"
+      <*> obj .:? "guid"
+      <*> obj .:? "deprecatedGuids"
+      <*> obj .:? "name"
+      <*> obj .:? "deprecatedNames"
+      <*> obj .:? "shortDescription"
+      <*> obj .:? "fullDescription"
+      <*> obj .:? "messageStrings"
+      <*> obj .:? "helpUri"
+      <*> obj .:? "help"
+      <*> obj .:? "defaultConfiguration"
+      <*> obj .:? "relationships"
+      <*> obj .:? "properties"

@@ -5,47 +5,38 @@
 -- file in the root directory of this source tree.                            --
 --------------------------------------------------------------------------------
 
--- | Provides the `MultiformatMessageString` type which is used to represent
--- messages in different formats, such as text or markdown.
-module Data.SARIF.MultiformatMessageString (
-    MultiformatMessageString(..),
-    defaultMultiformatMessageString
-) where
+module Data.SARIF.MultiformatMessageString
+  ( MultiformatMessageString (..),
+  )
+where
 
 --------------------------------------------------------------------------------
 
 import Data.Aeson.Optional
+import Data.Map.Strict
 import Data.Text
 
---------------------------------------------------------------------------------
-
--- | Represents a message in at least textual representation, but also allowing
--- it to be provided in other formats such as markdown.
-data MultiformatMessageString = MkMultiformatMessageString {
-    -- | A textual representation of the message, which is mandatory.
+data MultiformatMessageString = MkMultiformatMessageString
+  { -- | A textual representation of the message, which is mandatory.
     mmsText :: Text,
     -- | Optionally, a markdown representation of the message.
-    mmsMarkdown :: Maybe Text
-} deriving (Eq, Show)
+    mmsMarkdown :: Maybe Text,
+    -- | The properties property of the MultiformatMessageString object
+    mmsProperties :: Maybe (Map Text Value)
+  }
+  deriving (Eq, Show, Ord)
 
 instance ToJSON MultiformatMessageString where
-    toJSON MkMultiformatMessageString{..} = object
-        [ "text" .= mmsText
-        , "markdown" .=? mmsMarkdown
-        ]
+  toJSON MkMultiformatMessageString {..} =
+    object
+      [ "text" .= mmsText,
+        "markdown" .=? mmsMarkdown,
+        "properties" .=? mmsProperties
+      ]
 
 instance FromJSON MultiformatMessageString where
-    parseJSON = withObject "MultiformatMessageString" $ \obj ->
-        MkMultiformatMessageString <$> obj .: "text"
-                                   <*> obj .:? "markdown"
-
--- | `defaultMultiformatMessageString` @messageText@ constructs a
--- `MultiformatMessageString` value where @messageText@ is the textual
--- representation of the message.
-defaultMultiformatMessageString :: Text -> MultiformatMessageString
-defaultMultiformatMessageString text = MkMultiformatMessageString{
-    mmsText = text,
-    mmsMarkdown = Nothing
-}
-
---------------------------------------------------------------------------------
+  parseJSON = withObject "MultiformatMessageString" $ \obj ->
+    MkMultiformatMessageString
+      <$> obj .: "text"
+      <*> obj .:? "markdown"
+      <*> obj .:? "properties"
