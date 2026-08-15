@@ -13,10 +13,13 @@ jobs:
     name: "Nightly"
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v5
+    permissions:
+      contents: read
 
-      - uses: haskell-actions/setup@v2
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: haskell-actions/setup@v2.12.0
         id: install-haskell
         with:
           stack-no-global: true

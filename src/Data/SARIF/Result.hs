@@ -17,13 +17,9 @@ where
 --------------------------------------------------------------------------------
 
 import Data.Aeson.Optional hiding (Error, Result)
-import Data.Map.Strict
-import Data.SARIF.ArtifactLocation
-import Data.SARIF.Attachment
-import Data.SARIF.CodeFlow
-import Data.SARIF.Fix
-import Data.SARIF.Graph
-import Data.SARIF.GraphTraversal
+import Data.Text
+
+import Data.SARIF.Level
 import Data.SARIF.Location
 import Data.SARIF.Message
 import Data.SARIF.ReportingDescriptorReference (ReportingDescriptorReference)
