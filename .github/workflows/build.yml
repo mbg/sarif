@@ -36,7 +36,7 @@ jobs:
 
       - name: "Install stylish-haskell"
         run: |
-          sudo apt-get install stylish-haskell
+          sudo apt-get update && sudo apt-get install stylish-haskell
 
       - name: "Run stylish-haskell"
         run: |
