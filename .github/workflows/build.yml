@@ -15,12 +15,13 @@ on:
       - main
 
 jobs:
-  hlint:
-    name: "HLint"
+  checks:
+    name: "Checks"
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v7
+      - name: "Clone repository"
+        uses: actions/checkout@v7
 
       - name: "Set up HLint"
         uses: haskell/actions/hlint-setup@v2
@@ -32,6 +33,19 @@ jobs:
         with:
           path: src/
           fail-on: warning
+
+      - name: "Install stylish-haskell"
+        run: |
+          apt-get install stylish-haskell
+
+      - name: "Run stylish-haskell"
+        run: |
+          stylish-haskell -i src/**/*.hs
+
+      - name: "Diff source files"
+        run: |
+          git diff --output=format.diff
+          cat format.diff
 
   build:
     name: "Build"
