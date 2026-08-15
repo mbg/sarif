@@ -18,6 +18,7 @@ where
 
 import Data.Aeson.Optional hiding (Error, Result)
 import Data.Text
+import Data.UUID.Types
 
 import Data.SARIF.Level
 import Data.SARIF.Location
@@ -28,8 +29,6 @@ import Data.SARIF.Stack
 import Data.SARIF.Suppression
 import Data.SARIF.WebRequest
 import Data.SARIF.WebResponse
-import Data.Text
-import Data.UUID.Types
 
 --------------------------------------------------------------------------------
 
