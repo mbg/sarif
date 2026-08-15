@@ -15,23 +15,24 @@ import Data.SARIF.Message
 import Data.SARIF.MultiformatMessageString
 import Data.Text
 
-data GraphTraversal = MkGraphTraversal
-  { -- | The resultGraphIndex property of the graph traversal
-    graphTraversalResultGraphIndex :: Maybe Int,
-    -- | The runGraphIndex property of the graph traversal
-    graphTraversalRunGraphIndex :: Maybe Int,
-    -- | The description property of the graph traversal
-    graphTraversalDescription :: Maybe Message,
-    -- | The initialState property of the graph traversal
-    graphTraversalInitialState :: Map Text MultiformatMessageString,
-    -- | The immutableState property of the graph traversal
-    graphTraversalImmutableState :: Map Text MultiformatMessageString,
-    -- | The edgeTraversals property of the graph traversal
-    graphTraversalEdgeTraversals :: Maybe [EdgeTraversal],
-    -- | The properties property of the GraphTraversal object
-    graphTraversalProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data GraphTraversal
+  = MkGraphTraversal
+      { -- | The resultGraphIndex property of the graph traversal
+        graphTraversalResultGraphIndex :: Maybe Int
+        -- | The runGraphIndex property of the graph traversal
+      , graphTraversalRunGraphIndex :: Maybe Int
+        -- | The description property of the graph traversal
+      , graphTraversalDescription :: Maybe Message
+        -- | The initialState property of the graph traversal
+      , graphTraversalInitialState :: Map Text MultiformatMessageString
+        -- | The immutableState property of the graph traversal
+      , graphTraversalImmutableState :: Map Text MultiformatMessageString
+        -- | The edgeTraversals property of the graph traversal
+      , graphTraversalEdgeTraversals :: Maybe [EdgeTraversal]
+        -- | The properties property of the GraphTraversal object
+      , graphTraversalProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON GraphTraversal where
   toJSON MkGraphTraversal {..} =

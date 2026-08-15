@@ -13,23 +13,24 @@ import Data.Map.Strict
 import Data.SARIF.ArtifactLocation
 import Data.Text
 
-data VersionControlDetails = MkVersionControlDetails
-  { -- | The repositoryUri property of the version control details
-    versionControlDetailsRepositoryUri :: Text,
-    -- | The revisionId property of the version control details
-    versionControlDetailsRevisionId :: Text,
-    -- | The branch property of the version control details
-    versionControlDetailsBranch :: Maybe Text,
-    -- | The revisionTag property of the version control details
-    versionControlDetailsRevisionTag :: Maybe Text,
-    -- | The asOfTimeUtc property of the version control details
-    versionControlDetailsAsOfTimeUtc :: Maybe Text,
-    -- | The mappedTo property of the version control details
-    versionControlDetailsMappedTo :: Maybe ArtifactLocation,
-    -- | The properties property of a VersionControlDetails object
-    versionControlDetailsProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data VersionControlDetails
+  = MkVersionControlDetails
+      { -- | The repositoryUri property of the version control details
+        versionControlDetailsRepositoryUri :: Text
+        -- | The revisionId property of the version control details
+      , versionControlDetailsRevisionId :: Text
+        -- | The branch property of the version control details
+      , versionControlDetailsBranch :: Maybe Text
+        -- | The revisionTag property of the version control details
+      , versionControlDetailsRevisionTag :: Maybe Text
+        -- | The asOfTimeUtc property of the version control details
+      , versionControlDetailsAsOfTimeUtc :: Maybe Text
+        -- | The mappedTo property of the version control details
+      , versionControlDetailsMappedTo :: Maybe ArtifactLocation
+        -- | The properties property of a VersionControlDetails object
+      , versionControlDetailsProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON VersionControlDetails where
   toJSON MkVersionControlDetails {..} =

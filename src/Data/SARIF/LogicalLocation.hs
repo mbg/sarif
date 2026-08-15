@@ -39,7 +39,7 @@ data LogicalLocationKind
   | JSONArrayKind
   | JSONPropertyKind
   | JSONValueKind
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON LogicalLocationKind where
   toJSON ExecutableCodeFunctionKind = String "function"
@@ -86,23 +86,24 @@ instance FromJSON LogicalLocationKind where
       "value" -> pure JSONValueKind
       _ -> fail $ "Unknown LogicalLocationKind: " ++ unpack t
 
-data LogicalLocation = MkLogicalLocation
-  { -- | The index property of a logicalLocation object
-    logicalLocIndex :: Maybe Integer,
-    -- | The name property of a logicalLocation object
-    logicalLocName :: Text,
-    -- | The fullyQualifiedName property of a logicalLocation object
-    logicalLocFullyQualifiedName :: Maybe Text,
-    -- | The decoratedName property of a logicalLocation object
-    logicalLocDecoratedName :: Maybe Text,
-    -- | The kind property of a logicalLocation object
-    logicalLocKind :: LogicalLocationKind,
-    -- | The parentIndex property of a logicalLocation object
-    logicalLocParentIndex :: Maybe Integer,
-    -- | The properties property of the LogicalLocation object
-    logicalLocProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data LogicalLocation
+  = MkLogicalLocation
+      { -- | The index property of a logicalLocation object
+        logicalLocIndex :: Maybe Integer
+        -- | The name property of a logicalLocation object
+      , logicalLocName :: Text
+        -- | The fullyQualifiedName property of a logicalLocation object
+      , logicalLocFullyQualifiedName :: Maybe Text
+        -- | The decoratedName property of a logicalLocation object
+      , logicalLocDecoratedName :: Maybe Text
+        -- | The kind property of a logicalLocation object
+      , logicalLocKind :: LogicalLocationKind
+        -- | The parentIndex property of a logicalLocation object
+      , logicalLocParentIndex :: Maybe Integer
+        -- | The properties property of the LogicalLocation object
+      , logicalLocProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON LogicalLocation where
   toJSON MkLogicalLocation {..} =

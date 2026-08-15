@@ -20,19 +20,20 @@ import Data.SARIF.ArtifactLocation
 import Data.SARIF.Region
 import Data.Text
 
-data PhysicalLocation = MkPhysicalLocation
-  { -- | The artifactLocation property of a physicalLocation object
-    physicalLocArtifactLocation :: Maybe ArtifactLocation,
-    -- | The region property of a physicalLocation object
-    physicalLocRegion :: Maybe Region,
-    -- | The contextRegion property of a physicalLocation object
-    physicalLocContextRegion :: Maybe Region,
-    -- | The address property of a physicalLocation object
-    physicalLocAddress :: Maybe Address,
-    -- | The properties property of the PhysicalLocation object
-    physicalLocProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data PhysicalLocation
+  = MkPhysicalLocation
+      { -- | The artifactLocation property of a physicalLocation object
+        physicalLocArtifactLocation :: Maybe ArtifactLocation
+        -- | The region property of a physicalLocation object
+      , physicalLocRegion :: Maybe Region
+        -- | The contextRegion property of a physicalLocation object
+      , physicalLocContextRegion :: Maybe Region
+        -- | The address property of a physicalLocation object
+      , physicalLocAddress :: Maybe Address
+        -- | The properties property of the PhysicalLocation object
+      , physicalLocProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON PhysicalLocation where
   toJSON MkPhysicalLocation {..} =

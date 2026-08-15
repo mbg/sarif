@@ -15,17 +15,18 @@ import Data.SARIF.Invocation
 import Data.SARIF.Tool
 import Data.Text
 
-data Conversion = MkConversion
-  { -- | The tool property of the conversion
-    conversionTool :: Tool,
-    -- | The invocation property of the conversion
-    conversionInvocation :: Maybe Invocation,
-    -- | The analysisToolLogFiles property of the conversion
-    conversionAnalysisToolLogFiles :: Maybe [ArtifactLocation],
-    -- | The properties property of the Conversion object
-    conversionProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Conversion
+  = MkConversion
+      { -- | The tool property of the conversion
+        conversionTool :: Tool
+        -- | The invocation property of the conversion
+      , conversionInvocation :: Maybe Invocation
+        -- | The analysisToolLogFiles property of the conversion
+      , conversionAnalysisToolLogFiles :: Maybe [ArtifactLocation]
+        -- | The properties property of the Conversion object
+      , conversionProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Conversion where
   toJSON MkConversion {..} =

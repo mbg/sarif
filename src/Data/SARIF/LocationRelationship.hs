@@ -25,7 +25,7 @@ data LocationRelationshipKind
   | LocationRelIsIncludedBy
   | LocationRelRelevant
   | LocationRelCustom Text
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON LocationRelationshipKind where
   toJSON LocationRelIncludes = String "includes"
@@ -40,17 +40,18 @@ instance FromJSON LocationRelationshipKind where
     "relevant" -> pure LocationRelRelevant
     t' -> pure $ LocationRelCustom t'
 
-data LocationRelationship = MkLocationRelationship
-  { -- | The target property of a LocationRelationship object
-    logicalRelTarget :: Integer,
-    -- | The name property of a LocationRelationship object
-    logicalRelKinds :: Maybe [LocationRelationshipKind],
-    -- | The description property of a LocationRelationship object
-    logicalRelDescription :: Maybe Message,
-    -- | The properties property of the LocationRelationship object
-    logicalRelProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data LocationRelationship
+  = MkLocationRelationship
+      { -- | The target property of a LocationRelationship object
+        logicalRelTarget :: Integer
+        -- | The name property of a LocationRelationship object
+      , logicalRelKinds :: Maybe [LocationRelationshipKind]
+        -- | The description property of a LocationRelationship object
+      , logicalRelDescription :: Maybe Message
+        -- | The properties property of the LocationRelationship object
+      , logicalRelProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON LocationRelationship where
   toJSON MkLocationRelationship {..} =

@@ -15,19 +15,20 @@ import Data.SARIF.Message
 import Data.SARIF.MultiformatMessageString
 import Data.Text
 
-data EdgeTraversal = MkEdgeTraversal
-  { -- | The edgeId property of the edge traversal
-    edgeTraversalEdgeId :: Edge,
-    -- | The message property of the edge traversal
-    edgeTraversalMessage :: Maybe Message,
-    -- | The finalState property of the edge traversal
-    edgeTraversalFinalState :: Maybe (Map Text MultiformatMessageString),
-    -- | The stepOverEdgeCount property of the edge traversal
-    edgeTraversalStepOverEdgeCount :: Maybe Int,
-    -- | The properties property of the EdgeTraversal object
-    edgeTraversalProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data EdgeTraversal
+  = MkEdgeTraversal
+      { -- | The edgeId property of the edge traversal
+        edgeTraversalEdgeId :: Edge
+        -- | The message property of the edge traversal
+      , edgeTraversalMessage :: Maybe Message
+        -- | The finalState property of the edge traversal
+      , edgeTraversalFinalState :: Maybe (Map Text MultiformatMessageString)
+        -- | The stepOverEdgeCount property of the edge traversal
+      , edgeTraversalStepOverEdgeCount :: Maybe Int
+        -- | The properties property of the EdgeTraversal object
+      , edgeTraversalProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON EdgeTraversal where
   toJSON MkEdgeTraversal {..} =

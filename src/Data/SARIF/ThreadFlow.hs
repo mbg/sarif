@@ -14,21 +14,22 @@ import Data.SARIF.Message
 import Data.SARIF.ThreadFlowLocation
 import Data.Text
 
-data ThreadFlow = MkThreadFlow
-  { -- | The id property of a thread flow object
-    threadFlowId :: Maybe Text,
-    -- | The message property of a thread flow object
-    threadFlowMessage :: Maybe Message,
-    -- | The  initialState property of a thread flow object
-    threadFlowInitialState :: Maybe (Map Text Text),
-    -- | The immutableState property of a thread flow object
-    threadFlowImmutableState :: Maybe (Map Text Text),
-    -- | The locations property of a thread flow object
-    threadFlowLocations :: [ThreadFlowLocation],
-    -- | The properties property of the ThreadFlow object
-    threadFlowProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ThreadFlow
+  = MkThreadFlow
+      { -- | The id property of a thread flow object
+        threadFlowId :: Maybe Text
+        -- | The message property of a thread flow object
+      , threadFlowMessage :: Maybe Message
+        -- | The  initialState property of a thread flow object
+      , threadFlowInitialState :: Maybe (Map Text Text)
+        -- | The immutableState property of a thread flow object
+      , threadFlowImmutableState :: Maybe (Map Text Text)
+        -- | The locations property of a thread flow object
+      , threadFlowLocations :: [ThreadFlowLocation]
+        -- | The properties property of the ThreadFlow object
+      , threadFlowProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ThreadFlow where
   toJSON MkThreadFlow {..} =

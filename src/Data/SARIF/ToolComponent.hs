@@ -22,7 +22,7 @@ import Data.UUID.Types
 data ToolComponentContent
   = ToolComponentLocalizedDataContent
   | ToolComponentContentNonLocalizedData
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ToolComponentContent where
   toJSON ToolComponentLocalizedDataContent = String "localizedData"
@@ -36,63 +36,64 @@ instance FromJSON ToolComponentContent where
 
 -- | A description of a tool component, such as a static analysis tool or
 -- an extension to one.
-data ToolComponent = MkToolComponent
-  { -- | A GUID which identifies the tool component.
-    toolComponentGUID :: Maybe UUID,
-    -- | The short name of the tool component.
-    toolComponentName :: Maybe Text,
-    -- | The full name of the tool component.
-    toolComponentFullName :: Maybe Text,
-    -- | The name of the product to which the tool component belongs.
-    toolComponentProduct :: Maybe Text,
-    -- | The name of the suite of products to which the tool component belongs.
-    toolComponentProductSuit :: Maybe Text,
-    -- | The semver of the tool component.
-    toolComponentSemanticVersion :: Maybe Text,
-    -- | The version of the tool component.
-    toolComponentVersion :: Maybe Text,
-    -- | The UTC date and time at which the tool component was released.
-    toolComponentReleaseDateUtc :: Maybe UTCTime,
-    -- | A URI for downloading this tool component version.
-    toolComponentDownloadUri :: Maybe Text,
-    -- | A URI pointing to more information about the tool component.
-    toolComponentInformationUri :: Maybe Text,
-    -- | The name of the company or organization that produced the tool componen
-    toolComponentOrganization :: Maybe Text,
-    -- | One sentence description of the tool component.
-    toolComponentShortDescription :: Maybe MultiformatMessageString,
-    -- | A full description of the tool component.
-    toolComponentFullDescription :: Maybe MultiformatMessageString,
-    -- | the language of the string contained in the component
-    toolComponentLanguage :: Maybe Text,
-    -- | Mapping from Message ID to its corresponding message string.
-    toolComponentGlobalMessageStrings :: Maybe (Map Text MultiformatMessageString),
-    -- | A list of rules that the tool component applies.
-    toolComponentRules :: Maybe [ReportingDescriptor],
-    -- | A list of notifications information provided by the tool component
-    toolComponentNotifications :: Maybe [ReportingDescriptor],
-    -- | A list of taxonomies that
-    toolComponentTaxa :: Maybe [ReportingDescriptor],
-    -- | The supportedTaxonomies property of the tool component
-    toolComponentSupportedTaxonomies :: Maybe [ToolComponentReference],
-    -- | The translationMetadata property of the tool component
-    toolComponentTranslationMetadata :: Maybe TranslationMetadata,
-    -- | The locations property of the tool component
-    toolComponentLocations :: Maybe [ArtifactLocation],
-    -- | The contents property of the tool component
-    toolComponentContents :: Maybe [Text],
-    -- | The isComprehensive property of the tool component
-    toolComponentIsComprehensive :: Maybe Bool,
-    -- | The localizedDataSemanticVersion property of the tool component
-    toolComponentLocalizedDataSemanticVersion :: Maybe Text,
-    -- | The minimumRequiredLocalizedDataSemanticVersion property of the tool component
-    toolComponentMinimumRequiredLocalizedDataSemanticVersion :: Maybe Text,
-    -- | The associatedComponent property of the tool component
-    toolComponentAssociatedComponent :: Maybe ToolComponentReference,
-    -- | The properties property of a ToolComponent object
-    toolComponentProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ToolComponent
+  = MkToolComponent
+      { -- | A GUID which identifies the tool component.
+        toolComponentGUID :: Maybe UUID
+        -- | The short name of the tool component.
+      , toolComponentName :: Maybe Text
+        -- | The full name of the tool component.
+      , toolComponentFullName :: Maybe Text
+        -- | The name of the product to which the tool component belongs.
+      , toolComponentProduct :: Maybe Text
+        -- | The name of the suite of products to which the tool component belongs.
+      , toolComponentProductSuit :: Maybe Text
+        -- | The semver of the tool component.
+      , toolComponentSemanticVersion :: Maybe Text
+        -- | The version of the tool component.
+      , toolComponentVersion :: Maybe Text
+        -- | The UTC date and time at which the tool component was released.
+      , toolComponentReleaseDateUtc :: Maybe UTCTime
+        -- | A URI for downloading this tool component version.
+      , toolComponentDownloadUri :: Maybe Text
+        -- | A URI pointing to more information about the tool component.
+      , toolComponentInformationUri :: Maybe Text
+        -- | The name of the company or organization that produced the tool componen
+      , toolComponentOrganization :: Maybe Text
+        -- | One sentence description of the tool component.
+      , toolComponentShortDescription :: Maybe MultiformatMessageString
+        -- | A full description of the tool component.
+      , toolComponentFullDescription :: Maybe MultiformatMessageString
+        -- | the language of the string contained in the component
+      , toolComponentLanguage :: Maybe Text
+        -- | Mapping from Message ID to its corresponding message string.
+      , toolComponentGlobalMessageStrings :: Maybe (Map Text MultiformatMessageString)
+        -- | A list of rules that the tool component applies.
+      , toolComponentRules :: Maybe [ReportingDescriptor]
+        -- | A list of notifications information provided by the tool component
+      , toolComponentNotifications :: Maybe [ReportingDescriptor]
+        -- | A list of taxonomies that
+      , toolComponentTaxa :: Maybe [ReportingDescriptor]
+        -- | The supportedTaxonomies property of the tool component
+      , toolComponentSupportedTaxonomies :: Maybe [ToolComponentReference]
+        -- | The translationMetadata property of the tool component
+      , toolComponentTranslationMetadata :: Maybe TranslationMetadata
+        -- | The locations property of the tool component
+      , toolComponentLocations :: Maybe [ArtifactLocation]
+        -- | The contents property of the tool component
+      , toolComponentContents :: Maybe [Text]
+        -- | The isComprehensive property of the tool component
+      , toolComponentIsComprehensive :: Maybe Bool
+        -- | The localizedDataSemanticVersion property of the tool component
+      , toolComponentLocalizedDataSemanticVersion :: Maybe Text
+        -- | The minimumRequiredLocalizedDataSemanticVersion property of the tool component
+      , toolComponentMinimumRequiredLocalizedDataSemanticVersion :: Maybe Text
+        -- | The associatedComponent property of the tool component
+      , toolComponentAssociatedComponent :: Maybe ToolComponentReference
+        -- | The properties property of a ToolComponent object
+      , toolComponentProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ToolComponent where
   toJSON MkToolComponent {..} =

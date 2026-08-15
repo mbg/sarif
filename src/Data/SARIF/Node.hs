@@ -14,19 +14,20 @@ import Data.SARIF.Location
 import Data.SARIF.Message
 import Data.Text
 
-data Node = MkNode
-  { -- | The id property of the node
-    nodeId :: Text,
-    -- | The message property of the node
-    nodeMessage :: Maybe Message,
-    -- | The location property of the node
-    nodeLocation :: Location,
-    -- | The children property of the node
-    nodeChildren :: Maybe [Node],
-    -- | The properties property of the Node object
-    nodeProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Node
+  = MkNode
+      { -- | The id property of the node
+        nodeId :: Text
+        -- | The message property of the node
+      , nodeMessage :: Maybe Message
+        -- | The location property of the node
+      , nodeLocation :: Location
+        -- | The children property of the node
+      , nodeChildren :: Maybe [Node]
+        -- | The properties property of the Node object
+      , nodeProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Node where
   toJSON MkNode {..} =

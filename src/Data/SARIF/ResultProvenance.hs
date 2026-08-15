@@ -13,23 +13,24 @@ import Data.Map.Strict
 import Data.SARIF.PhysicalLocation
 import Data.Text
 
-data ResultProvenance = MkResultProvenance
-  { -- | The firstDetectionTimeUtc property of the result provenance
-    resultProvenanceFirstDetectionTimeUtc :: Maybe Text,
-    -- | The lastDetectionTimeUtc property of the result provenance
-    resultProvenanceLastDetectionTimeUtc :: Maybe Text,
-    -- | The firstDetectionRunGuid property of the result provenance
-    resultProvenanceFirstDetectionRunGuid :: Maybe Text,
-    -- | The lastDetectionRunGuid property of the result provenance
-    resultProvenanceLastDetectionRunGuid :: Maybe Text,
-    -- | The invocationIndex property of the result provenance
-    resultProvenanceInvocationIndex :: Maybe Int,
-    -- | The conversionSources property of the result provenance
-    resultProvenanceConversionSources :: Maybe [PhysicalLocation],
-    -- | The properties property of the ResultProvenance object
-    resultProvenanceProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ResultProvenance
+  = MkResultProvenance
+      { -- | The firstDetectionTimeUtc property of the result provenance
+        resultProvenanceFirstDetectionTimeUtc :: Maybe Text
+        -- | The lastDetectionTimeUtc property of the result provenance
+      , resultProvenanceLastDetectionTimeUtc :: Maybe Text
+        -- | The firstDetectionRunGuid property of the result provenance
+      , resultProvenanceFirstDetectionRunGuid :: Maybe Text
+        -- | The lastDetectionRunGuid property of the result provenance
+      , resultProvenanceLastDetectionRunGuid :: Maybe Text
+        -- | The invocationIndex property of the result provenance
+      , resultProvenanceInvocationIndex :: Maybe Int
+        -- | The conversionSources property of the result provenance
+      , resultProvenanceConversionSources :: Maybe [PhysicalLocation]
+        -- | The properties property of the ResultProvenance object
+      , resultProvenanceProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ResultProvenance where
   toJSON MkResultProvenance {..} =

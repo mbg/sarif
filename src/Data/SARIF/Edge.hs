@@ -14,19 +14,20 @@ import Data.SARIF.Message
 import Data.SARIF.Node
 import Data.Text
 
-data Edge = MkEdge
-  { -- | The id property of the edge
-    edgeId :: Text,
-    -- | The label property of the edge
-    edgeLabel :: Maybe Message,
-    -- | The sourceNodeId property of the edge
-    edgeSourceNodeId :: Node,
-    -- | The targetNodeId property of the edge
-    edgeTargetNodeId :: Node,
-    -- | The properties property of the Edge object
-    edgeProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Edge
+  = MkEdge
+      { -- | The id property of the edge
+        edgeId :: Text
+        -- | The label property of the edge
+      , edgeLabel :: Maybe Message
+        -- | The sourceNodeId property of the edge
+      , edgeSourceNodeId :: Node
+        -- | The targetNodeId property of the edge
+      , edgeTargetNodeId :: Node
+        -- | The properties property of the Edge object
+      , edgeProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Edge where
   toJSON MkEdge {..} =

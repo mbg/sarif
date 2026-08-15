@@ -17,15 +17,15 @@ import Data.Aeson.Optional
 
 -- | A `Level` value represents the severity of a result.
 data Level
-  = -- | The concept of “severity” does not apply.
-    LevelNone
-  | -- | A minor problem or an opportunity to improve the code was found.
-    LevelNote
-  | -- | A problem was found.
-    LevelWarning
-  | -- | A serious problem was found.
-    LevelError
-  deriving (Eq, Show, Ord)
+  -- | The concept of “severity” does not apply.
+  = LevelNone
+  -- | A minor problem or an opportunity to improve the code was found.
+  | LevelNote
+  -- | A problem was found.
+  | LevelWarning
+  -- | A serious problem was found.
+  | LevelError
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Level where
   toJSON LevelNone = "none"

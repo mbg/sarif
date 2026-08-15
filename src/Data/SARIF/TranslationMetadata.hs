@@ -13,23 +13,24 @@ import Data.Map.Strict
 import Data.SARIF.MultiformatMessageString
 import Data.Text
 
-data TranslationMetadata = MkTranslationMetadata
-  { -- | the name property of the translation metadata
-    translationMetadataName :: Text,
-    -- | The fullName property of the translation metadata
-    translationMetadataFullName :: Maybe Text,
-    -- | The shortDescription property of the translation metadata
-    translationMetadataShortDescription :: Maybe MultiformatMessageString,
-    -- | The fullDescription property of the translation metadata
-    translationMetadataFullDescription :: Maybe MultiformatMessageString,
-    -- | The downloadUri property of the translation metadata
-    translationMetadataDownloadUri :: Maybe Text,
-    -- | The informationUri property of the translation metadata
-    translationMetadataInformationUri :: Maybe Text,
-    -- | The properties property of a TranslationMetadata object
-    translationMetadataProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data TranslationMetadata
+  = MkTranslationMetadata
+      { -- | the name property of the translation metadata
+        translationMetadataName :: Text
+        -- | The fullName property of the translation metadata
+      , translationMetadataFullName :: Maybe Text
+        -- | The shortDescription property of the translation metadata
+      , translationMetadataShortDescription :: Maybe MultiformatMessageString
+        -- | The fullDescription property of the translation metadata
+      , translationMetadataFullDescription :: Maybe MultiformatMessageString
+        -- | The downloadUri property of the translation metadata
+      , translationMetadataDownloadUri :: Maybe Text
+        -- | The informationUri property of the translation metadata
+      , translationMetadataInformationUri :: Maybe Text
+        -- | The properties property of a TranslationMetadata object
+      , translationMetadataProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON TranslationMetadata where
   toJSON MkTranslationMetadata {..} =

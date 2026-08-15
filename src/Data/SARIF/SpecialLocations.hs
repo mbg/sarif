@@ -13,13 +13,14 @@ import Data.Map.Strict
 import Data.SARIF.ArtifactLocation
 import Data.Text
 
-data SpecialLocations = MkSpecialLocations
-  { -- | The displayBase property of the special locations
-    specialLocationsDisplayBase :: Maybe ArtifactLocation,
-    -- | The properties property of the SpecialLocations object
-    specialLocationsProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data SpecialLocations
+  = MkSpecialLocations
+      { -- | The displayBase property of the special locations
+        specialLocationsDisplayBase :: Maybe ArtifactLocation
+        -- | The properties property of the SpecialLocations object
+      , specialLocationsProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON SpecialLocations where
   toJSON MkSpecialLocations {..} =

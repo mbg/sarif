@@ -40,7 +40,7 @@ data ResultKind
   | ResultNoApplicableKind
   | ResultReviewKind
   | ResultFailKind
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ResultKind where
   toJSON ResultPassKind = String "pass"
@@ -65,7 +65,7 @@ data ResultLevel
   | ResultErrorLevel
   | ResultNoteLevel
   | ResultNoneLevel
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ResultLevel where
   toJSON ResultWarningLevel = String "warning"
@@ -86,7 +86,7 @@ data ResultBaselineState
   | ResultBaselineUnchangedState
   | ResultBaselineUpdatedState
   | ResultBaselineAbsentState
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ResultBaselineState where
   toJSON ResultBaselineNewState = String "new"
@@ -103,70 +103,71 @@ instance FromJSON ResultBaselineState where
     _ -> fail "Unknown ResultBaselineState"
 
 -- | Represents the results of a run of a static analysis tool.
-data Result = MkResult
-  { -- | A unique,stable and opaque identifier for the result.
-    resultGuid :: Maybe UUID,
-    -- | The identifier of a logically identical result
-    resultCorrelationGuid :: Maybe UUID,
-    -- | The unique ID of the rule of which this result is an occurrence of.
-    resultRuleId :: Text,
-    -- | A reference to the `ReportingDescriptor` for the rule
-    resultRuleIndex :: Maybe Int,
-    -- | The rule descriptor reference that identifies the report descriptor
-    resultRule :: Maybe ReportingDescriptorReference,
-    -- | A list of references to taxonomies to which this result belongs.
-    resultTaxa :: Maybe [ReportingDescriptorReference],
-    -- | The kind property of the result.
-    resultKind :: Maybe ResultKind,
-    -- | The level property of the result
-    resultLevel :: Maybe ResultLevel,
-    -- | A result-specific message which may refer to specific variable names
-    -- etc. which caused the rule to trigger.
-    resultMessage :: Message,
-    -- | The locations property of the result.
-    resultLocations :: [Location],
-    -- | The analysisTarget property of the result
-    resultAnalysisTarget :: Maybe ArtifactLocation,
-    -- | The webRequest property of the result
-    resultWebRequest :: Maybe WebRequest,
-    -- | The webResponse property of the result
-    resultWebResponse :: Maybe WebResponse,
-    -- | The fingerprints property of the result
-    resultFingerprints :: Maybe (Map Text Text),
-    -- | The partialFingerprints property of the result
-    resultPartialFingerprints :: Maybe (Map Text Text),
-    -- | The codeFlows property of the result
-    resultCodeFlows :: Maybe [CodeFlow],
-    -- | The graph property of the result
-    resultGraphs :: Maybe [Graph],
-    -- | The graph traversal property of the result
-    resultGraphTraversals :: Maybe [GraphTraversal],
-    -- | The stacks property of the result
-    resultStacks :: Maybe [Stack],
-    -- | The relatedLocations property of the result
-    resultRelatedLocations :: Maybe [Location],
-    -- | The suppressions property of the result
-    resultSuppressions :: Maybe [Suppression],
-    -- | The baselineState property of the result
-    resultBaselineState :: Maybe ResultBaselineState,
-    -- | The rank property of the result
-    resultRank :: Maybe Double,
-    -- | The attachments property of the result
-    resultAttachments :: Maybe [Attachment],
-    -- | The workItemUris property of the result
-    resultWorkItemUris :: Maybe [Text],
-    -- | The hostedViewerUri property of the result
-    resultHostedViewerUri :: Maybe Text,
-    -- | The provenance property of the result
-    resultProvenance :: Maybe ResultProvenance,
-    -- | The fixes property of the result
-    resultFixes :: Maybe [Fix],
-    -- | The occurrenceCount property of the result
-    resultOccurrenceCount :: Maybe Int,
-    -- | The properties property of the Result object
-    resultProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Result
+  = MkResult
+      { -- | A unique,stable and opaque identifier for the result.
+        resultGuid :: Maybe UUID
+        -- | The identifier of a logically identical result
+      , resultCorrelationGuid :: Maybe UUID
+        -- | The unique ID of the rule of which this result is an occurrence of.
+      , resultRuleId :: Text
+        -- | A reference to the `ReportingDescriptor` for the rule
+      , resultRuleIndex :: Maybe Int
+        -- | The rule descriptor reference that identifies the report descriptor
+      , resultRule :: Maybe ReportingDescriptorReference
+        -- | A list of references to taxonomies to which this result belongs.
+      , resultTaxa :: Maybe [ReportingDescriptorReference]
+        -- | The kind property of the result.
+      , resultKind :: Maybe ResultKind
+        -- | The level property of the result
+      , resultLevel :: Maybe ResultLevel
+        -- | A result-specific message which may refer to specific variable names
+        -- etc. which caused the rule to trigger.
+      , resultMessage :: Message
+        -- | The locations property of the result.
+      , resultLocations :: [Location]
+        -- | The analysisTarget property of the result
+      , resultAnalysisTarget :: Maybe ArtifactLocation
+        -- | The webRequest property of the result
+      , resultWebRequest :: Maybe WebRequest
+        -- | The webResponse property of the result
+      , resultWebResponse :: Maybe WebResponse
+        -- | The fingerprints property of the result
+      , resultFingerprints :: Maybe (Map Text Text)
+        -- | The partialFingerprints property of the result
+      , resultPartialFingerprints :: Maybe (Map Text Text)
+        -- | The codeFlows property of the result
+      , resultCodeFlows :: Maybe [CodeFlow]
+        -- | The graph property of the result
+      , resultGraphs :: Maybe [Graph]
+        -- | The graph traversal property of the result
+      , resultGraphTraversals :: Maybe [GraphTraversal]
+        -- | The stacks property of the result
+      , resultStacks :: Maybe [Stack]
+        -- | The relatedLocations property of the result
+      , resultRelatedLocations :: Maybe [Location]
+        -- | The suppressions property of the result
+      , resultSuppressions :: Maybe [Suppression]
+        -- | The baselineState property of the result
+      , resultBaselineState :: Maybe ResultBaselineState
+        -- | The rank property of the result
+      , resultRank :: Maybe Double
+        -- | The attachments property of the result
+      , resultAttachments :: Maybe [Attachment]
+        -- | The workItemUris property of the result
+      , resultWorkItemUris :: Maybe [Text]
+        -- | The hostedViewerUri property of the result
+      , resultHostedViewerUri :: Maybe Text
+        -- | The provenance property of the result
+      , resultProvenance :: Maybe ResultProvenance
+        -- | The fixes property of the result
+      , resultFixes :: Maybe [Fix]
+        -- | The occurrenceCount property of the result
+      , resultOccurrenceCount :: Maybe Int
+        -- | The properties property of the Result object
+      , resultProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Result where
   toJSON MkResult {..} =

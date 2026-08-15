@@ -18,17 +18,18 @@ import Data.Map.Strict
 import Data.Text
 import Data.UUID.Types
 
-data ToolComponentReference = MkToolComponentReference
-  { -- | A name which should equals to the `name` property of a toolComponent
-    toolComponentReferenceName :: Maybe Text,
-    -- | An index into the `extensions` array
-    toolComponentReferenceIndex :: Maybe Text,
-    -- | A GUID  which should equals to the `guid` property of a toolComponent
-    toolComponentReferenceGuid :: Maybe UUID,
-    -- | The properties property of a ToolComponentReference object
-    toolComponentReferenceProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ToolComponentReference
+  = MkToolComponentReference
+      { -- | A name which should equals to the `name` property of a toolComponent
+        toolComponentReferenceName :: Maybe Text
+        -- | An index into the `extensions` array
+      , toolComponentReferenceIndex :: Maybe Text
+        -- | A GUID  which should equals to the `guid` property of a toolComponent
+      , toolComponentReferenceGuid :: Maybe UUID
+        -- | The properties property of a ToolComponentReference object
+      , toolComponentReferenceProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ToolComponentReference where
   toJSON MkToolComponentReference {..} =

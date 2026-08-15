@@ -16,19 +16,20 @@ import Data.SARIF.Rectangle
 import Data.SARIF.Region
 import Data.Text
 
-data Attachment = MkAttachment
-  { -- | The description property of the attachment
-    attachmentDescription :: Maybe Message,
-    -- | The location property of the attachment
-    attachmentLocation :: Maybe Location,
-    -- | The region property of the attachment
-    attachmentRegion :: Maybe [Region],
-    -- | The rectangle property of the attachment
-    attachmentRectangle :: Maybe [Rectangle],
-    -- | The properties property of an Attachment object
-    attachmentProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Attachment
+  = MkAttachment
+      { -- | The description property of the attachment
+        attachmentDescription :: Maybe Message
+        -- | The location property of the attachment
+      , attachmentLocation :: Maybe Location
+        -- | The region property of the attachment
+      , attachmentRegion :: Maybe [Region]
+        -- | The rectangle property of the attachment
+      , attachmentRectangle :: Maybe [Rectangle]
+        -- | The properties property of an Attachment object
+      , attachmentProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Attachment where
   toJSON MkAttachment {..} =

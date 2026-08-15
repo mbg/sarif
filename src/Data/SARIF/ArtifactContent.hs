@@ -16,17 +16,18 @@ import Data.Map.Strict
 import Data.SARIF.MultiformatMessageString
 import Data.Text
 
-data ArtifactContent = MkArtifactContent
-  { -- | The text property of an artifactContent object
-    artifactContentText :: Maybe Text,
-    -- | The binary property of an artifactContent object
-    artifactContentBinary :: Maybe Text,
-    -- | The rendered property of an artifactContent object
-    artifactContentRendered :: Maybe MultiformatMessageString,
-    -- | The properties property of an ArtifactContent object
-    artifactContentProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ArtifactContent
+  = MkArtifactContent
+      { -- | The text property of an artifactContent object
+        artifactContentText :: Maybe Text
+        -- | The binary property of an artifactContent object
+      , artifactContentBinary :: Maybe Text
+        -- | The rendered property of an artifactContent object
+      , artifactContentRendered :: Maybe MultiformatMessageString
+        -- | The properties property of an ArtifactContent object
+      , artifactContentProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ArtifactContent where
   toJSON MkArtifactContent {..} =

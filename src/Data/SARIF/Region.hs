@@ -19,33 +19,34 @@ import Data.SARIF.ArtifactContent
 import Data.SARIF.Message
 import Data.Text
 
-data Region = MkRegion
-  { -- | The startLine property of a region object
-    regionStartLine :: Maybe Int,
-    -- | The startColumn property of a region object
-    regionStartColumn :: Maybe Int,
-    -- | The endLine property of a region object
-    regionEndLine :: Maybe Int,
-    -- | The endColumn property of a region object
-    regionEndColumn :: Maybe Int,
-    -- | The charOffset property of a region object
-    regionCharOffset :: Maybe Int,
-    -- | The charLength property of a region object
-    regionCharLength :: Maybe Int,
-    -- | The byteOffset property of a region object
-    regionByteOffset :: Maybe Int,
-    -- | The byteLength property of a region object
-    regionByteLength :: Maybe Int,
-    -- | The snippet property of a region object
-    regionSnippet :: Maybe ArtifactContent,
-    -- | The message property of a region object
-    regionMessage :: Maybe Message,
-    -- | The sourceLanguage property of a region object
-    regionSourceLanguage :: Maybe Text,
-    -- | The properties property of the Region object
-    regionProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Region
+  = MkRegion
+      { -- | The startLine property of a region object
+        regionStartLine :: Maybe Int
+        -- | The startColumn property of a region object
+      , regionStartColumn :: Maybe Int
+        -- | The endLine property of a region object
+      , regionEndLine :: Maybe Int
+        -- | The endColumn property of a region object
+      , regionEndColumn :: Maybe Int
+        -- | The charOffset property of a region object
+      , regionCharOffset :: Maybe Int
+        -- | The charLength property of a region object
+      , regionCharLength :: Maybe Int
+        -- | The byteOffset property of a region object
+      , regionByteOffset :: Maybe Int
+        -- | The byteLength property of a region object
+      , regionByteLength :: Maybe Int
+        -- | The snippet property of a region object
+      , regionSnippet :: Maybe ArtifactContent
+        -- | The message property of a region object
+      , regionMessage :: Maybe Message
+        -- | The sourceLanguage property of a region object
+      , regionSourceLanguage :: Maybe Text
+        -- | The properties property of the Region object
+      , regionProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Region where
   toJSON MkRegion {..} =

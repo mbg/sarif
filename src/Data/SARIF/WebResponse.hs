@@ -16,27 +16,28 @@ import Data.Map.Strict
 import Data.SARIF.ArtifactContent
 import Data.Text
 
-data WebResponse = MkWebResponse
-  { -- | The index property of a web response object
-    webResponseIndex :: Maybe Integer,
-    -- | The protocal property of a web request object
-    webResponseProtocol :: Text,
-    -- | The version property of a web response object
-    webResponseVersion :: Text,
-    -- | The target property of a web response object
-    webResponseStatusCode :: Integer,
-    -- | The method property of a web response object
-    webResponseReasonPhrase :: Text,
-    -- | The headers property of a web response object
-    webResponseHeaders :: Map Text Text,
-    -- | The body property of a web response object
-    webResponseBody :: Maybe ArtifactContent,
-    -- | The noResponseReceived property of a web response object
-    webResponseNoResponseReceived :: Maybe Bool,
-    -- | The properties property of a WebResponse object
-    webResponseProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data WebResponse
+  = MkWebResponse
+      { -- | The index property of a web response object
+        webResponseIndex :: Maybe Integer
+        -- | The protocal property of a web request object
+      , webResponseProtocol :: Text
+        -- | The version property of a web response object
+      , webResponseVersion :: Text
+        -- | The target property of a web response object
+      , webResponseStatusCode :: Integer
+        -- | The method property of a web response object
+      , webResponseReasonPhrase :: Text
+        -- | The headers property of a web response object
+      , webResponseHeaders :: Map Text Text
+        -- | The body property of a web response object
+      , webResponseBody :: Maybe ArtifactContent
+        -- | The noResponseReceived property of a web response object
+      , webResponseNoResponseReceived :: Maybe Bool
+        -- | The properties property of a WebResponse object
+      , webResponseProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON WebResponse where
   toJSON MkWebResponse {..} =

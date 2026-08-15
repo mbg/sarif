@@ -19,19 +19,20 @@ import Data.SARIF.ToolComponentReference
 import Data.Text
 import Data.UUID.Types
 
-data ReportingDescriptorReference = MkReportingDescriptorReference
-  { -- | An identifier which should equals to the `id` property of a reportingDescriptor
-    reportingDescriptorReferenceId :: Maybe Text,
-    -- | An index into the `toolComponent.rules` array
-    reportingDescriptorReferenceIndex :: Maybe Integer,
-    -- | A GUID which identifies the ReportingDescriptor.
-    reportingDescriptorReferenceGuid :: Maybe UUID,
-    -- | A reference to a `ToolComponent`.
-    reportingDescriptorReferenceToolComponent :: Maybe ToolComponentReference,
-    -- | The properties property of the ReportingDescriptorReference object
-    reportingDescriptorReferenceProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ReportingDescriptorReference
+  = MkReportingDescriptorReference
+      { -- | An identifier which should equals to the `id` property of a reportingDescriptor
+        reportingDescriptorReferenceId :: Maybe Text
+        -- | An index into the `toolComponent.rules` array
+      , reportingDescriptorReferenceIndex :: Maybe Integer
+        -- | A GUID which identifies the ReportingDescriptor.
+      , reportingDescriptorReferenceGuid :: Maybe UUID
+        -- | A reference to a `ToolComponent`.
+      , reportingDescriptorReferenceToolComponent :: Maybe ToolComponentReference
+        -- | The properties property of the ReportingDescriptorReference object
+      , reportingDescriptorReferenceProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ReportingDescriptorReference where
   toJSON MkReportingDescriptorReference {..} =

@@ -14,15 +14,16 @@ import Data.SARIF.ArtifactContent
 import Data.SARIF.Region
 import Data.Text
 
-data Replacement = MkReplacement
-  { -- | The deletedRegion property of the replacement
-    replacementDeletedRegion :: Region,
-    -- | The insertedContent property of the replacement
-    replacementInsertedContent :: Maybe ArtifactContent,
-    -- | The properties property of the Replacement object
-    replacementProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Replacement
+  = MkReplacement
+      { -- | The deletedRegion property of the replacement
+        replacementDeletedRegion :: Region
+        -- | The insertedContent property of the replacement
+      , replacementInsertedContent :: Maybe ArtifactContent
+        -- | The properties property of the Replacement object
+      , replacementProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Replacement where
   toJSON MkReplacement {..} =

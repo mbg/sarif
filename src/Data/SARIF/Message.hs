@@ -17,19 +17,20 @@ import Data.Aeson.Optional
 import Data.Map.Strict
 import Data.Text
 
-data Message = MkMessage
-  { -- | The text property of a message object
-    messageText :: Maybe Text,
-    -- | The markdown property of a message object
-    messageMarkdown :: Maybe Text,
-    -- | The id property of a message object
-    messageId :: Maybe Text,
-    -- | The arguments property of a message object
-    messageArguments :: Maybe [Text],
-    -- | The properties property of the Message object
-    messageProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Message
+  = MkMessage
+      { -- | The text property of a message object
+        messageText :: Maybe Text
+        -- | The markdown property of a message object
+      , messageMarkdown :: Maybe Text
+        -- | The id property of a message object
+      , messageId :: Maybe Text
+        -- | The arguments property of a message object
+      , messageArguments :: Maybe [Text]
+        -- | The properties property of the Message object
+      , messageProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Message where
   toJSON MkMessage {..} =

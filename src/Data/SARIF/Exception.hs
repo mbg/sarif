@@ -13,19 +13,20 @@ import Data.Map.Strict
 import Data.SARIF.Stack
 import Data.Text
 
-data Exception = MkException
-  { -- | The kind property of the exception
-    exceptionKind :: Text,
-    -- | The message property of the exception
-    exceptionMessage :: Text,
-    -- | The stack property of the exception
-    exceptionStack :: Maybe Stack,
-    -- | The innerExceptions property of the exception
-    exceptionInnerExceptions :: Maybe [Exception],
-    -- | The properties property of the Exception object
-    exceptionProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Exception
+  = MkException
+      { -- | The kind property of the exception
+        exceptionKind :: Text
+        -- | The message property of the exception
+      , exceptionMessage :: Text
+        -- | The stack property of the exception
+      , exceptionStack :: Maybe Stack
+        -- | The innerExceptions property of the exception
+      , exceptionInnerExceptions :: Maybe [Exception]
+        -- | The properties property of the Exception object
+      , exceptionProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Exception where
   toJSON MkException {..} =

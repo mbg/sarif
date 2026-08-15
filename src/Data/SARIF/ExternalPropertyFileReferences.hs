@@ -13,43 +13,44 @@ import Data.Map.Strict
 import Data.SARIF.ExternalPropertyFileReference
 import Data.Text
 
-data ExternalPropertyFileReferences = MkExternalPropertyFileReferences
-  { -- | The addresses property of the external property file references
-    externalPropertyFileReferencesAddresses :: Maybe [ExternalPropertyFileReference],
-    -- | The artifacts property of the external property file references
-    externalPropertyFileReferencesArtifacts :: Maybe [ExternalPropertyFileReference],
-    -- | The conversion property of the external property file references
-    externalPropertyFileReferencesConversion :: Maybe ExternalPropertyFileReference,
-    -- | The graphs property of the external property file references
-    externalPropertyFileReferencesGraphs :: Maybe [ExternalPropertyFileReference],
-    -- | The invocations property of the external property file references
-    externalPropertyFileReferencesInvocations :: Maybe [ExternalPropertyFileReference],
-    -- | The logicalLocations property of the external property file references
-    externalPropertyFileReferencesLogicalLocations :: Maybe [ExternalPropertyFileReference],
-    -- | The policies property of the external property file references
-    externalPropertyFileReferencesPolicies :: Maybe [ExternalPropertyFileReference],
-    -- | The externalizedProperties property of the external property file references
-    externalPropertyFileReferencesExternalizedProperties :: Maybe ExternalPropertyFileReference,
-    -- | The webRequests property of the external property file references
-    externalPropertyFileReferencesWebRequests :: Maybe [ExternalPropertyFileReference],
-    -- | The webResponses property of the external property file references
-    externalPropertyFileReferencesWebResponses :: Maybe [ExternalPropertyFileReference],
-    -- | The results property of the external property file references
-    externalPropertyFileReferencesResults :: Maybe [ExternalPropertyFileReference],
-    -- | The taxonomies property of the external property file references
-    externalPropertyFileReferencesTaxonomies :: Maybe [ExternalPropertyFileReference],
-    -- | The threadFlowLocations property of the external property file references
-    externalPropertyFileReferencesThreadFlowLocations :: Maybe [ExternalPropertyFileReference],
-    -- | The translations property of the external property file references
-    externalPropertyFileReferencesTranslations :: Maybe [ExternalPropertyFileReference],
-    -- | The driver property of the external property file references
-    externalPropertyFileReferencesDriver :: Maybe ExternalPropertyFileReference,
-    -- | The extensions property of the external property file references
-    externalPropertyFileReferencesExtensions :: Maybe [ExternalPropertyFileReference],
-    -- | The properties property of the ExternalPropertyFileReferences object
-    externalPropertyFileReferencesProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ExternalPropertyFileReferences
+  = MkExternalPropertyFileReferences
+      { -- | The addresses property of the external property file references
+        externalPropertyFileReferencesAddresses :: Maybe [ExternalPropertyFileReference]
+        -- | The artifacts property of the external property file references
+      , externalPropertyFileReferencesArtifacts :: Maybe [ExternalPropertyFileReference]
+        -- | The conversion property of the external property file references
+      , externalPropertyFileReferencesConversion :: Maybe ExternalPropertyFileReference
+        -- | The graphs property of the external property file references
+      , externalPropertyFileReferencesGraphs :: Maybe [ExternalPropertyFileReference]
+        -- | The invocations property of the external property file references
+      , externalPropertyFileReferencesInvocations :: Maybe [ExternalPropertyFileReference]
+        -- | The logicalLocations property of the external property file references
+      , externalPropertyFileReferencesLogicalLocations :: Maybe [ExternalPropertyFileReference]
+        -- | The policies property of the external property file references
+      , externalPropertyFileReferencesPolicies :: Maybe [ExternalPropertyFileReference]
+        -- | The externalizedProperties property of the external property file references
+      , externalPropertyFileReferencesExternalizedProperties :: Maybe ExternalPropertyFileReference
+        -- | The webRequests property of the external property file references
+      , externalPropertyFileReferencesWebRequests :: Maybe [ExternalPropertyFileReference]
+        -- | The webResponses property of the external property file references
+      , externalPropertyFileReferencesWebResponses :: Maybe [ExternalPropertyFileReference]
+        -- | The results property of the external property file references
+      , externalPropertyFileReferencesResults :: Maybe [ExternalPropertyFileReference]
+        -- | The taxonomies property of the external property file references
+      , externalPropertyFileReferencesTaxonomies :: Maybe [ExternalPropertyFileReference]
+        -- | The threadFlowLocations property of the external property file references
+      , externalPropertyFileReferencesThreadFlowLocations :: Maybe [ExternalPropertyFileReference]
+        -- | The translations property of the external property file references
+      , externalPropertyFileReferencesTranslations :: Maybe [ExternalPropertyFileReference]
+        -- | The driver property of the external property file references
+      , externalPropertyFileReferencesDriver :: Maybe ExternalPropertyFileReference
+        -- | The extensions property of the external property file references
+      , externalPropertyFileReferencesExtensions :: Maybe [ExternalPropertyFileReference]
+        -- | The properties property of the ExternalPropertyFileReferences object
+      , externalPropertyFileReferencesProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ExternalPropertyFileReferences where
   toJSON MkExternalPropertyFileReferences {..} =

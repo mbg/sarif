@@ -28,7 +28,7 @@ data AddressKind
   | StackKind
   | ModuleKind
   | TableKind
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON AddressKind where
   toJSON DataKind = String "data"
@@ -61,29 +61,30 @@ instance FromJSON AddressKind where
 
 -- | Represents default configurations for `ReportingDescriptor` values. That is
 -- properties which may be overriden by individual results.
-data Address = MkAddress
-  { -- | The index property of an Address object
-    addressIndex :: Maybe Int,
-    -- | The absoluteAddress property of an Address object
-    addressAbsoluteAddress :: Maybe Integer,
-    -- | The relativeAddress property of an Address object
-    addressRelativeAddress :: Maybe Integer,
-    -- | The offsetFromParent property of an Address object
-    addressOffsetFromParent :: Maybe Integer,
-    -- | The length property of an Address object
-    addressLength :: Maybe Integer,
-    -- | The name property of an Address object
-    addressName :: Maybe Text,
-    -- | The fullyQualifiedName property of an Address object
-    addressFullyQualifiedName :: Maybe Text,
-    -- | The kind property of an Address object
-    addressKind :: Maybe AddressKind,
-    -- | The parentIndex property of an Address object
-    addressParentIndex :: Maybe Int,
-    -- | The properties property of an Address object
-    addressProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Address
+  = MkAddress
+      { -- | The index property of an Address object
+        addressIndex :: Maybe Int
+        -- | The absoluteAddress property of an Address object
+      , addressAbsoluteAddress :: Maybe Integer
+        -- | The relativeAddress property of an Address object
+      , addressRelativeAddress :: Maybe Integer
+        -- | The offsetFromParent property of an Address object
+      , addressOffsetFromParent :: Maybe Integer
+        -- | The length property of an Address object
+      , addressLength :: Maybe Integer
+        -- | The name property of an Address object
+      , addressName :: Maybe Text
+        -- | The fullyQualifiedName property of an Address object
+      , addressFullyQualifiedName :: Maybe Text
+        -- | The kind property of an Address object
+      , addressKind :: Maybe AddressKind
+        -- | The parentIndex property of an Address object
+      , addressParentIndex :: Maybe Int
+        -- | The properties property of an Address object
+      , addressProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Address where
   toJSON MkAddress {..} =

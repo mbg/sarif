@@ -13,19 +13,20 @@ import Data.Map.Strict
 import Data.SARIF.Message
 import Data.Text
 
-data AutomationDetails = MkAutomationDetails
-  { -- | The description property of the automation details
-    automationDetailsDescription :: Maybe Message,
-    -- | The id property of the automation details
-    automationDetailsId :: Maybe Text,
-    -- | The guid property of the automation details
-    automationDetailsGuid :: Maybe Text,
-    -- | The correlationGuid property of the automation details
-    automationDetailsCorrelationGuid :: Maybe Text,
-    -- | The properties property of the automation details
-    automationDetailsProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data AutomationDetails
+  = MkAutomationDetails
+      { -- | The description property of the automation details
+        automationDetailsDescription :: Maybe Message
+        -- | The id property of the automation details
+      , automationDetailsId :: Maybe Text
+        -- | The guid property of the automation details
+      , automationDetailsGuid :: Maybe Text
+        -- | The correlationGuid property of the automation details
+      , automationDetailsCorrelationGuid :: Maybe Text
+        -- | The properties property of the automation details
+      , automationDetailsProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON AutomationDetails where
   toJSON MkAutomationDetails {..} =

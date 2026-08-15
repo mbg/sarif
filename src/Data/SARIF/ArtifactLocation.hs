@@ -16,19 +16,20 @@ import Data.Map.Strict
 import Data.SARIF.Message
 import Data.Text
 
-data ArtifactLocation = MkArtifactLocation
-  { -- | The uri property of an artifactLocation object
-    artifactLocUri :: Maybe Text,
-    -- | The uriBasedId property of an artifactLocation object
-    artifactLocUriBaseId :: Maybe Text,
-    -- | The index property of an artifactLocation object
-    artifactLocIndex :: Maybe Int,
-    -- | The description property of an artifactLocation object
-    artifactLocDescription :: Maybe Message,
-    -- | The properties property of an ArtifactLocation object
-    artifactLocProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq,Ord,Show)
+data ArtifactLocation
+  = MkArtifactLocation
+      { -- | The uri property of an artifactLocation object
+        artifactLocUri :: Maybe Text
+        -- | The uriBasedId property of an artifactLocation object
+      , artifactLocUriBaseId :: Maybe Text
+        -- | The index property of an artifactLocation object
+      , artifactLocIndex :: Maybe Int
+        -- | The description property of an artifactLocation object
+      , artifactLocDescription :: Maybe Message
+        -- | The properties property of an ArtifactLocation object
+      , artifactLocProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 
 instance ToJSON ArtifactLocation where

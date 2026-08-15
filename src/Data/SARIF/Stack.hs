@@ -14,15 +14,16 @@ import Data.SARIF.Message
 import Data.SARIF.StackFrame
 import Data.Text
 
-data Stack = MkStack
-  { -- | The message property of a thread flow object
-    stackMessage :: Maybe Message,
-    -- | The frames property of a thread flow object
-    stackFrames :: [StackFrame],
-    -- | The properties property of the Stack object
-    stackProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Stack
+  = MkStack
+      { -- | The message property of a thread flow object
+        stackMessage :: Maybe Message
+        -- | The frames property of a thread flow object
+      , stackFrames :: [StackFrame]
+        -- | The properties property of the Stack object
+      , stackProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Stack where
   toJSON MkStack {..} =

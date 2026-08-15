@@ -13,19 +13,20 @@ import Data.Map.Strict
 import Data.SARIF.Location
 import Data.Text
 
-data StackFrame = MkStackFrame
-  { -- | The location property of a stack frame object
-    stackFrameLocation :: Maybe Location,
-    -- | The module property of a stack frame object
-    stackFrameModule :: Maybe Text,
-    -- | The threadId property of a stack frame object
-    stackFrameThreadId :: Maybe Integer,
-    -- | The parameters property of a stack frame object
-    stackFrameParameters :: Maybe [Text],
-    -- | The properties property of the StackFrame object
-    stackFrameProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data StackFrame
+  = MkStackFrame
+      { -- | The location property of a stack frame object
+        stackFrameLocation :: Maybe Location
+        -- | The module property of a stack frame object
+      , stackFrameModule :: Maybe Text
+        -- | The threadId property of a stack frame object
+      , stackFrameThreadId :: Maybe Integer
+        -- | The parameters property of a stack frame object
+      , stackFrameParameters :: Maybe [Text]
+        -- | The properties property of the StackFrame object
+      , stackFrameProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON StackFrame where
   toJSON MkStackFrame {..} =

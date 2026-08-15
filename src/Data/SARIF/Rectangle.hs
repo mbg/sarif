@@ -13,21 +13,22 @@ import Data.Map.Strict
 import Data.SARIF.Message
 import Data.Text
 
-data Rectangle = MkRectangle
-  { -- | The top property of the rectangle
-    rectangleTop :: Int,
-    -- | The left property of the rectangle
-    rectangleLeft :: Int,
-    -- | The bottom property of the rectangle
-    rectangleBottom :: Int,
-    -- | The right property of the rectangle
-    rectangleRight :: Int,
-    -- | The message property of the rectangle
-    rectangleMessage :: Message,
-    -- | The properties property of the Rectangle object
-    rectangleProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Rectangle
+  = MkRectangle
+      { -- | The top property of the rectangle
+        rectangleTop :: Int
+        -- | The left property of the rectangle
+      , rectangleLeft :: Int
+        -- | The bottom property of the rectangle
+      , rectangleBottom :: Int
+        -- | The right property of the rectangle
+      , rectangleRight :: Int
+        -- | The message property of the rectangle
+      , rectangleMessage :: Message
+        -- | The properties property of the Rectangle object
+      , rectangleProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Rectangle where
   toJSON MkRectangle {..} =

@@ -13,17 +13,18 @@ import Data.Map.Strict
 import Data.SARIF.ArtifactLocation
 import Data.Text
 
-data ExternalPropertyFileReference = MkExternalPropertyFileReference
-  { -- | The location property of the external property file reference
-    externalPropertyFileReferenceLocation :: Maybe ArtifactLocation,
-    -- | The guid property of the external property file reference
-    externalPropertyFileReferenceGuid :: Maybe Text,
-    -- | The itemCount property of the external property file reference
-    externalPropertyFileReferenceItemCount :: Maybe Int,
-    -- | The properties property of the ExternalPropertyFileReference object
-    externalPropertyFileReferenceProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ExternalPropertyFileReference
+  = MkExternalPropertyFileReference
+      { -- | The location property of the external property file reference
+        externalPropertyFileReferenceLocation :: Maybe ArtifactLocation
+        -- | The guid property of the external property file reference
+      , externalPropertyFileReferenceGuid :: Maybe Text
+        -- | The itemCount property of the external property file reference
+      , externalPropertyFileReferenceItemCount :: Maybe Int
+        -- | The properties property of the ExternalPropertyFileReference object
+      , externalPropertyFileReferenceProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ExternalPropertyFileReference where
   toJSON MkExternalPropertyFileReference {..} =

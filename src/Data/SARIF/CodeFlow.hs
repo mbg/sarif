@@ -13,12 +13,13 @@ import Data.Map.Strict
 import Data.SARIF.ThreadFlow
 import Data.Text
 
-data CodeFlow = MkCodeFlow
-  { codeFlowMessage :: Maybe Text,
-    codeFlowThreadFlows :: [ThreadFlow],
-    codeFlowProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data CodeFlow
+  = MkCodeFlow
+      { codeFlowMessage :: Maybe Text
+      , codeFlowThreadFlows :: [ThreadFlow]
+      , codeFlowProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON CodeFlow where
   toJSON MkCodeFlow {..} =

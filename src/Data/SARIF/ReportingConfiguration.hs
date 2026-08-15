@@ -18,19 +18,20 @@ import qualified Data.Map.Lazy as M
 import Data.SARIF.Level
 import Data.Text
 
-data ReportingConfiguration = MkReportingConfiguration
-  { -- | Flag indicating whether theDescriptor was checked for during the scan.
-    reportingConfigurationEnabled :: Bool,
-    -- | The default severity of the reporting descriptor.
-    reportingConfigurationLevel :: Maybe Level,
-    -- | A float representing the priority or importance of the result.
-    reportingConfigurationRank :: Maybe Double,
-    -- | Configuration information that is specific to that descriptor
-    reportingConfigurationParameters :: Maybe (M.Map Text Value),
-    -- | The properties property of the ReportingConfiguration object
-    reportingConfigurationProperties :: Maybe (M.Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ReportingConfiguration
+  = MkReportingConfiguration
+      { -- | Flag indicating whether theDescriptor was checked for during the scan.
+        reportingConfigurationEnabled :: Bool
+        -- | The default severity of the reporting descriptor.
+      , reportingConfigurationLevel :: Maybe Level
+        -- | A float representing the priority or importance of the result.
+      , reportingConfigurationRank :: Maybe Double
+        -- | Configuration information that is specific to that descriptor
+      , reportingConfigurationParameters :: Maybe (M.Map Text Value)
+        -- | The properties property of the ReportingConfiguration object
+      , reportingConfigurationProperties :: Maybe (M.Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ReportingConfiguration where
   toJSON MkReportingConfiguration {..} =

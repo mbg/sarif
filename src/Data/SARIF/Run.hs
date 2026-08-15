@@ -41,7 +41,7 @@ data RunColumnKind
   = RunUtf16CodeUnitsColumnKind
   | RunUnicodeCodePointsColumnKind
   | RunCustomColumnKind Text
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON RunColumnKind where
   toJSON RunUtf16CodeUnitsColumnKind = String "utf16CodeUnits"
@@ -55,65 +55,66 @@ instance FromJSON RunColumnKind where
     other -> pure $ RunCustomColumnKind other
 
 -- | Represents individual runs of static analysis tools.
-data Run = MkRun
-  { -- | The externalPropertyFileReferences property of a run
-    runExternalPropertyFileReferences :: Maybe ExternalPropertyFileReferences,
-    -- | The automationDetails property of a run
-    runAutomationDetails :: Maybe AutomationDetails,
-    -- | The runAggregates property of a run
-    runAggregates :: Maybe [AutomationDetails],
-    -- | The baselineGuid property of a run
-    runBaselineGuid :: Maybe Text,
-    -- | The tool property of a run
-    runTool :: Maybe Tool,
-    -- | The language property of a run
-    runLanguage :: Maybe Text,
-    -- | The taxonomies property of a run
-    runTaxonomies :: Maybe [ToolComponent],
-    -- | The translations property of a run
-    runTranslations :: Maybe [ToolComponent],
-    -- | The policies property of a run
-    runPolicies :: Maybe [ToolComponent],
-    -- | The invocations property of a run
-    runInvocations :: Maybe [Invocation],
-    -- | The conversion property of a run
-    runConversion :: Maybe Conversion,
-    -- | The versionControlProvenance property of a run
-    runVersionControlProvenance :: Maybe VersionControlDetails,
-    -- | The originalUriBaseIds property of a run
-    runOriginalUriBaseIds :: Maybe (Map Text ArtifactLocation),
-    -- | The artifacts property of a run
-    runArtifacts :: Maybe [Artifact],
-    -- | The specialLocations property of a run
-    runSpecialLocations :: Maybe [SpecialLocations],
-    -- | The logicalLocations property of a run
-    runLogicalLocations :: Maybe [LogicalLocation],
-    -- | The addresses property of a run
-    runAddresses :: Maybe [Address],
-    -- | The threadFlowLocations property of a run
-    runThreadFlowLocations :: Maybe [ThreadFlowLocation],
-    -- | The graphs property of a run
-    runGraphs :: Maybe [Graph],
-    -- | The webRequests property of a run
-    runWebRequests :: Maybe [WebRequest],
-    -- | The webResponses property of a run
-    runWebResponses :: Maybe [WebResponse],
-    -- | The results property of a run
-    runResults :: Maybe [Result],
-    -- | The defaultEncoding property of a run
-    runDefaultEncoding :: Maybe Text,
-    -- | The defaultSourceLanguage property of a run
-    runDefaultSourceLanguage :: Maybe Text,
-    -- | The newlineSequences property of a run
-    runNewlineSequences :: Maybe [Text],
-    -- | The columnKind property of a run
-    runColumnKind :: Maybe RunColumnKind,
-    -- | The redactionTokens property of a run
-    runRedactionTokens :: Maybe [Text],
-    -- | The properties property of the Run object
-    runProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Run
+  = MkRun
+      { -- | The externalPropertyFileReferences property of a run
+        runExternalPropertyFileReferences :: Maybe ExternalPropertyFileReferences
+        -- | The automationDetails property of a run
+      , runAutomationDetails :: Maybe AutomationDetails
+        -- | The runAggregates property of a run
+      , runAggregates :: Maybe [AutomationDetails]
+        -- | The baselineGuid property of a run
+      , runBaselineGuid :: Maybe Text
+        -- | The tool property of a run
+      , runTool :: Maybe Tool
+        -- | The language property of a run
+      , runLanguage :: Maybe Text
+        -- | The taxonomies property of a run
+      , runTaxonomies :: Maybe [ToolComponent]
+        -- | The translations property of a run
+      , runTranslations :: Maybe [ToolComponent]
+        -- | The policies property of a run
+      , runPolicies :: Maybe [ToolComponent]
+        -- | The invocations property of a run
+      , runInvocations :: Maybe [Invocation]
+        -- | The conversion property of a run
+      , runConversion :: Maybe Conversion
+        -- | The versionControlProvenance property of a run
+      , runVersionControlProvenance :: Maybe VersionControlDetails
+        -- | The originalUriBaseIds property of a run
+      , runOriginalUriBaseIds :: Maybe (Map Text ArtifactLocation)
+        -- | The artifacts property of a run
+      , runArtifacts :: Maybe [Artifact]
+        -- | The specialLocations property of a run
+      , runSpecialLocations :: Maybe [SpecialLocations]
+        -- | The logicalLocations property of a run
+      , runLogicalLocations :: Maybe [LogicalLocation]
+        -- | The addresses property of a run
+      , runAddresses :: Maybe [Address]
+        -- | The threadFlowLocations property of a run
+      , runThreadFlowLocations :: Maybe [ThreadFlowLocation]
+        -- | The graphs property of a run
+      , runGraphs :: Maybe [Graph]
+        -- | The webRequests property of a run
+      , runWebRequests :: Maybe [WebRequest]
+        -- | The webResponses property of a run
+      , runWebResponses :: Maybe [WebResponse]
+        -- | The results property of a run
+      , runResults :: Maybe [Result]
+        -- | The defaultEncoding property of a run
+      , runDefaultEncoding :: Maybe Text
+        -- | The defaultSourceLanguage property of a run
+      , runDefaultSourceLanguage :: Maybe Text
+        -- | The newlineSequences property of a run
+      , runNewlineSequences :: Maybe [Text]
+        -- | The columnKind property of a run
+      , runColumnKind :: Maybe RunColumnKind
+        -- | The redactionTokens property of a run
+      , runRedactionTokens :: Maybe [Text]
+        -- | The properties property of the Run object
+      , runProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 --------------------------------------------------------------------------------
 

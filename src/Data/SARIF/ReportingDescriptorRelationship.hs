@@ -26,7 +26,7 @@ data ReportingDescriptorRelationshipKind
   | ReportingDescriptorRelationshipWillPrecedeKind
   | ReportingDescriptorRelationshipRelevantKind
   | ReportingDescriptorRelationshipCustomKind Text
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ReportingDescriptorRelationshipKind where
   toJSON ReportingDescriptorRelationshipEqualKind = String "equal"
@@ -56,17 +56,18 @@ instance FromJSON ReportingDescriptorRelationshipKind where
       "relevant" -> pure ReportingDescriptorRelationshipRelevantKind
       _ -> pure (ReportingDescriptorRelationshipCustomKind t)
 
-data ReportingDescriptorRelationship = MkReportingDescriptorRelationship
-  { -- | The target property of the reporting descriptor relationship
-    reportingDescriptorRelationshipTarget :: ReportingDescriptorReference,
-    -- | The kinds property of the reporting descriptor relationship
-    reportingDescriptorRelationshipKinds :: [ReportingDescriptorRelationshipKind],
-    -- | The description property of the reporting descriptor relationship
-    reportingDescriptorRelationshipDescription :: Maybe Message,
-    -- | The properties property of the ReportingDescriptorRelationship object
-    reportingDescriptorRelationshipProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ReportingDescriptorRelationship
+  = MkReportingDescriptorRelationship
+      { -- | The target property of the reporting descriptor relationship
+        reportingDescriptorRelationshipTarget :: ReportingDescriptorReference
+        -- | The kinds property of the reporting descriptor relationship
+      , reportingDescriptorRelationshipKinds :: [ReportingDescriptorRelationshipKind]
+        -- | The description property of the reporting descriptor relationship
+      , reportingDescriptorRelationshipDescription :: Maybe Message
+        -- | The properties property of the ReportingDescriptorRelationship object
+      , reportingDescriptorRelationshipProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ReportingDescriptorRelationship where
   toJSON MkReportingDescriptorRelationship {..} =

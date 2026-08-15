@@ -21,7 +21,7 @@ data NotificationLevel
   | NotificationWarningLevel
   | NotificationNoteLevel
   | NotificationNoneLevel
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON NotificationLevel where
   toJSON NotificationErrorLevel = String "error"
@@ -37,27 +37,28 @@ instance FromJSON NotificationLevel where
     "none" -> pure NotificationNoneLevel
     _ -> fail "Unknown NotificationLevel"
 
-data Notification = MkNotification
-  { -- | The descriptor property of the notification
-    notificationDescriptor :: ReportingDescriptorReference,
-    -- | The associatedRule property of the notification
-    notificationAssociatedRule :: Maybe ReportingDescriptorReference,
-    -- | The locations property of the notification
-    notificationLocations :: Maybe [Location],
-    -- | The message property of the notification
-    notificationMessage :: Maybe Message,
-    -- | The level property of the notification
-    notificationLevel :: Maybe NotificationLevel,
-    -- | The threadId property of the notification
-    notificationThreadId :: Maybe Int,
-    -- | The timeUtc property of the notification
-    notificationTimeUtc :: Maybe Text,
-    -- | The exception property of the notification
-    notificationException :: Maybe Exception,
-    -- | The properties property of the Notification object
-    notificationProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Notification
+  = MkNotification
+      { -- | The descriptor property of the notification
+        notificationDescriptor :: ReportingDescriptorReference
+        -- | The associatedRule property of the notification
+      , notificationAssociatedRule :: Maybe ReportingDescriptorReference
+        -- | The locations property of the notification
+      , notificationLocations :: Maybe [Location]
+        -- | The message property of the notification
+      , notificationMessage :: Maybe Message
+        -- | The level property of the notification
+      , notificationLevel :: Maybe NotificationLevel
+        -- | The threadId property of the notification
+      , notificationThreadId :: Maybe Int
+        -- | The timeUtc property of the notification
+      , notificationTimeUtc :: Maybe Text
+        -- | The exception property of the notification
+      , notificationException :: Maybe Exception
+        -- | The properties property of the Notification object
+      , notificationProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Notification where
   toJSON MkNotification {..} =

@@ -14,15 +14,16 @@ import Data.SARIF.ArtifactChange
 import Data.SARIF.Message
 import Data.Text
 
-data Fix = MkFix
-  { -- | The description property of the fix
-    fixDescription :: Message,
-    -- | The artifactChanges property of the fix
-    fixArtifactChanges :: [ArtifactChange],
-    -- | The properties property of the Fix object
-    fixProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Fix
+  = MkFix
+      { -- | The description property of the fix
+        fixDescription :: Message
+        -- | The artifactChanges property of the fix
+      , fixArtifactChanges :: [ArtifactChange]
+        -- | The properties property of the Fix object
+      , fixProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Fix where
   toJSON MkFix {..} =

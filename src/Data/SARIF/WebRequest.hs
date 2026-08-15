@@ -16,27 +16,28 @@ import Data.Map.Strict
 import Data.SARIF.ArtifactContent
 import Data.Text
 
-data WebRequest = MkWebRequest
-  { -- | The index property of a web request object
-    webRequestIndex :: Maybe Integer,
-    -- | The protocal property of a web request object
-    webRequestProtocol :: Text,
-    -- | The version property of a web request object
-    webRequestVersion :: Text,
-    -- | The target property of a web request object
-    webRequestTarget :: Text,
-    -- | The method property of a web request object
-    webRequestMethod :: Text,
-    -- | The headers property of a web request object
-    webRequestHeaders :: Map Text Text,
-    -- | The parameters property of a web request object
-    webRequestParameters :: Maybe (Map Text Text),
-    -- | The body property of a web request object
-    webRequestBody :: Maybe ArtifactContent,
-    -- | The properties property of a WebRequest object
-    webRequestProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data WebRequest
+  = MkWebRequest
+      { -- | The index property of a web request object
+        webRequestIndex :: Maybe Integer
+        -- | The protocal property of a web request object
+      , webRequestProtocol :: Text
+        -- | The version property of a web request object
+      , webRequestVersion :: Text
+        -- | The target property of a web request object
+      , webRequestTarget :: Text
+        -- | The method property of a web request object
+      , webRequestMethod :: Text
+        -- | The headers property of a web request object
+      , webRequestHeaders :: Map Text Text
+        -- | The parameters property of a web request object
+      , webRequestParameters :: Maybe (Map Text Text)
+        -- | The body property of a web request object
+      , webRequestBody :: Maybe ArtifactContent
+        -- | The properties property of a WebRequest object
+      , webRequestProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON WebRequest where
   toJSON MkWebRequest {..} =

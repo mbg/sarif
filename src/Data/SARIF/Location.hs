@@ -24,23 +24,24 @@ import Data.SARIF.PhysicalLocation
 import Data.SARIF.Region
 import Data.Text
 
-data Location = MkLocation
-  { -- | The id property of a location object
-    locationId :: Maybe Integer,
-    -- | The physicalLocation property of a location object
-    locationPhysicalLocation :: Maybe PhysicalLocation,
-    -- | The logicalLocations property of a location object
-    locationLogicalLocations :: Maybe [LogicalLocation],
-    -- | The message property of a location object
-    locationMessage :: Maybe Message,
-    -- | The annotations property of a location object
-    locationAnnotations :: Maybe [Region],
-    -- | The relationship property of a location object
-    locationRelationship :: Maybe [LocationRelationship],
-    -- | The properties property of the Location object
-    locationProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Location
+  = MkLocation
+      { -- | The id property of a location object
+        locationId :: Maybe Integer
+        -- | The physicalLocation property of a location object
+      , locationPhysicalLocation :: Maybe PhysicalLocation
+        -- | The logicalLocations property of a location object
+      , locationLogicalLocations :: Maybe [LogicalLocation]
+        -- | The message property of a location object
+      , locationMessage :: Maybe Message
+        -- | The annotations property of a location object
+      , locationAnnotations :: Maybe [Region]
+        -- | The relationship property of a location object
+      , locationRelationship :: Maybe [LocationRelationship]
+        -- | The properties property of the Location object
+      , locationProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Location where
   toJSON MkLocation {..} =

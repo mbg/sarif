@@ -24,17 +24,18 @@ import Data.Text
 --------------------------------------------------------------------------------
 
 -- | Each SARIF file contains one `Log` value at the top.
-data Log = MkLog
-  { -- | The version identifier of the SARIF format used by the file.
-    logVersion :: Text,
-    -- | An absolute URI to the JSON schema describing the SARIF format version of this log file.
-    logSchema :: Maybe Text,
-    -- | A list of descriptions of runs of static analysis tools.
-    logRuns :: Maybe [Run],
-    -- | The inlineExternalProperties property of the log
-    logProperties :: Maybe ExternalPropertyFileReferences
-  }
-  deriving (Eq, Show, Ord)
+data Log
+  = MkLog
+      { -- | The version identifier of the SARIF format used by the file.
+        logVersion :: Text
+        -- | An absolute URI to the JSON schema describing the SARIF format version of this log file.
+      , logSchema :: Maybe Text
+        -- | A list of descriptions of runs of static analysis tools.
+      , logRuns :: Maybe [Run]
+        -- | The inlineExternalProperties property of the log
+      , logProperties :: Maybe ExternalPropertyFileReferences
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Log where
   toJSON MkLog {..} =

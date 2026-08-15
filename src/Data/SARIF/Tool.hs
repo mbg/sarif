@@ -17,13 +17,14 @@ where
 import Data.Aeson.Optional
 import Data.SARIF.ToolComponent
 
-data Tool = MkTool
-  { -- | The description of the tool itself.
-    toolDriver :: ToolComponent,
-    -- | Descriptions of any extensions to the tool that were used.
-    toolExtensions :: Maybe [ToolComponent]
-  }
-  deriving (Eq, Show, Ord)
+data Tool
+  = MkTool
+      { -- | The description of the tool itself.
+        toolDriver :: ToolComponent
+        -- | Descriptions of any extensions to the tool that were used.
+      , toolExtensions :: Maybe [ToolComponent]
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Tool where
   toJSON MkTool {..} =

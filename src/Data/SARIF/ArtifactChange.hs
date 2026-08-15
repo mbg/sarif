@@ -14,15 +14,16 @@ import Data.SARIF.ArtifactLocation
 import Data.SARIF.Replacement
 import Data.Text
 
-data ArtifactChange = MkArtifactChange
-  { -- | The artifactLocation property of the artifact change
-    artifactChangeArtifactLocation :: ArtifactLocation,
-    -- | The replacement property of the artifact change
-    artifactChangeReplacementArtifacts :: [Replacement],
-    -- | The properties property of an ArtifactChange object
-    artifactChangeProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ArtifactChange
+  = MkArtifactChange
+      { -- | The artifactLocation property of the artifact change
+        artifactChangeArtifactLocation :: ArtifactLocation
+        -- | The replacement property of the artifact change
+      , artifactChangeReplacementArtifacts :: [Replacement]
+        -- | The properties property of an ArtifactChange object
+      , artifactChangeProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ArtifactChange where
   toJSON MkArtifactChange {..} =

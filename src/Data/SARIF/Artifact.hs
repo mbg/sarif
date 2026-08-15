@@ -49,7 +49,7 @@ data ArtifactRole
   | ArtifactRenamedRole
   | ArtifactUncontrolledRole
   | ArtifactUnmodifiedRole
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ArtifactRole where
   toJSON ArtifactAnalysisTargetRole = String "analysisTarget"
@@ -109,35 +109,36 @@ instance FromJSON ArtifactRole where
     "unmodified" -> pure ArtifactUnmodifiedRole
     other -> fail $ "Unknown ArtifactRole: " <> unpack other
 
-data Artifact = MkArtifact
-  { -- | The location where the artifact was found.
-    artifactLocation :: Maybe ArtifactLocation,
-    -- | The parentIndex property of the artifact.
-    artifactParentIndex :: Maybe Int,
-    -- | The offset property of the artifact.
-    artifactOffset :: Maybe Int,
-    -- | The length property of the artifact.
-    artifactLength :: Maybe Int,
-    -- | The roles property of the artifact.
-    artifactRoles :: Maybe [ArtifactRole],
-    -- | The mimeType property of the artifact.
-    artifactMimeType :: Maybe Text,
-    -- | The contents property of the artifact.
-    artifactContents :: Maybe ArtifactContent,
-    -- | The encoding property of the artifact.
-    artifactEncoding :: Maybe Text,
-    -- | The sourceLanguage property of the artifact.
-    artifactSourceLanguage :: Maybe Text,
-    -- | The hashes property of the artifact.
-    artifactHashes :: Maybe [(Text, Text)],
-    -- | The lastModifiedTimeUtc property of the artifact.
-    artifactLastModifiedTimeUtc :: Maybe Text,
-    -- | The description property of the artifact.
-    artifactDescription :: Maybe Message,
-    -- | The properties property of an Artifact object
-    artifactProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Artifact
+  = MkArtifact
+      { -- | The location where the artifact was found.
+        artifactLocation :: Maybe ArtifactLocation
+        -- | The parentIndex property of the artifact.
+      , artifactParentIndex :: Maybe Int
+        -- | The offset property of the artifact.
+      , artifactOffset :: Maybe Int
+        -- | The length property of the artifact.
+      , artifactLength :: Maybe Int
+        -- | The roles property of the artifact.
+      , artifactRoles :: Maybe [ArtifactRole]
+        -- | The mimeType property of the artifact.
+      , artifactMimeType :: Maybe Text
+        -- | The contents property of the artifact.
+      , artifactContents :: Maybe ArtifactContent
+        -- | The encoding property of the artifact.
+      , artifactEncoding :: Maybe Text
+        -- | The sourceLanguage property of the artifact.
+      , artifactSourceLanguage :: Maybe Text
+        -- | The hashes property of the artifact.
+      , artifactHashes :: Maybe [(Text, Text)]
+        -- | The lastModifiedTimeUtc property of the artifact.
+      , artifactLastModifiedTimeUtc :: Maybe Text
+        -- | The description property of the artifact.
+      , artifactDescription :: Maybe Message
+        -- | The properties property of an Artifact object
+      , artifactProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Artifact where
   toJSON MkArtifact {..} =

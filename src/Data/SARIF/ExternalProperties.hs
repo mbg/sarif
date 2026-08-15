@@ -12,19 +12,20 @@ import Data.Aeson.Optional
 import Data.SARIF.ExternalPropertyFileReferences
 import Data.Text
 
-data ExternalProperties = MkExternalProperties
-  { -- | The schema property of the external properties
-    externalPropertiesSchema :: Maybe Text,
-    -- | The version property of the external properties
-    externalPropertiesVersion :: Maybe Text,
-    -- | The guid property of the external properties
-    externalPropertiesGuid :: Text,
-    -- | The runGuid property of the external properties
-    externalPropertiesRunGuid :: Maybe Text,
-    -- | The properties property of the external properties
-    externalPropertiesProperties :: Maybe ExternalPropertyFileReferences
-  }
-  deriving (Eq, Show, Ord)
+data ExternalProperties
+  = MkExternalProperties
+      { -- | The schema property of the external properties
+        externalPropertiesSchema :: Maybe Text
+        -- | The version property of the external properties
+      , externalPropertiesVersion :: Maybe Text
+        -- | The guid property of the external properties
+      , externalPropertiesGuid :: Text
+        -- | The runGuid property of the external properties
+      , externalPropertiesRunGuid :: Maybe Text
+        -- | The properties property of the external properties
+      , externalPropertiesProperties :: Maybe ExternalPropertyFileReferences
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ExternalProperties where
   toJSON MkExternalProperties {..} =

@@ -15,17 +15,18 @@ import Data.SARIF.Message
 import Data.SARIF.Node
 import Data.Text
 
-data Graph = MkGraph
-  { -- | The description property of the graph
-    graphDescription :: Maybe Message,
-    -- | The nodes property of the graph,
-    graphNodes :: Maybe [Node],
-    -- | The edges property of the graph
-    graphEdges :: Maybe [Edge],
-    -- | The properties property of the Graph object
-    graphProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Graph
+  = MkGraph
+      { -- | The description property of the graph
+        graphDescription :: Maybe Message
+        -- | The nodes property of the graph,
+      , graphNodes :: Maybe [Node]
+        -- | The edges property of the graph
+      , graphEdges :: Maybe [Edge]
+        -- | The properties property of the Graph object
+      , graphProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Graph where
   toJSON MkGraph {..} =

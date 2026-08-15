@@ -14,15 +14,16 @@ import Data.SARIF.ReportingConfiguration
 import Data.SARIF.ReportingDescriptorReference
 import Data.Text
 
-data ConfigurationOverride = MkConfigurationOverride
-  { -- | The descriptor property of the configuration override
-    configurationOverrideDescriptor :: ReportingDescriptorReference,
-    -- | The configuration property of the configuration override
-    configurationOverrideConfiguration :: ReportingConfiguration,
-    -- | The properties property of the ConfigurationOverride object
-    configurationOverrideProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data ConfigurationOverride
+  = MkConfigurationOverride
+      { -- | The descriptor property of the configuration override
+        configurationOverrideDescriptor :: ReportingDescriptorReference
+        -- | The configuration property of the configuration override
+      , configurationOverrideConfiguration :: ReportingConfiguration
+        -- | The properties property of the ConfigurationOverride object
+      , configurationOverrideProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON ConfigurationOverride where
   toJSON MkConfigurationOverride {..} =

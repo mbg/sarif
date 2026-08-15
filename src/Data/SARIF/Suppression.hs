@@ -17,7 +17,7 @@ import Data.UUID.Types
 data SuppressionKind
   = SuppressionInSourceKind
   | SuppressionExternalKind
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON SuppressionKind where
   toJSON SuppressionInSourceKind = String "inSource"
@@ -33,7 +33,7 @@ data SuppressionStatus
   = SuppressionAcceptedStatus
   | SuppressionRejectedStatus
   | SuppressionUnderReviewStatus
-  deriving (Eq, Show, Ord)
+  deriving (Eq, Ord, Show)
 
 instance ToJSON SuppressionStatus where
   toJSON SuppressionAcceptedStatus = String "accepted"
@@ -47,15 +47,16 @@ instance FromJSON SuppressionStatus where
     "underReview" -> pure SuppressionUnderReviewStatus
     _ -> fail "Unknown SuppressionStatus"
 
-data Suppression = MkSuppression
-  { suppressionKind :: SuppressionKind,
-    suppressionStatus :: Maybe SuppressionStatus,
-    suppressionLocation :: Maybe Location,
-    suppressionGUID :: Maybe UUID,
-    suppressionJustification :: Maybe Text,
-    suppressionProperties :: Maybe (Map Text Value)
-  }
-  deriving (Eq, Show, Ord)
+data Suppression
+  = MkSuppression
+      { suppressionKind :: SuppressionKind
+      , suppressionStatus :: Maybe SuppressionStatus
+      , suppressionLocation :: Maybe Location
+      , suppressionGUID :: Maybe UUID
+      , suppressionJustification :: Maybe Text
+      , suppressionProperties :: Maybe (Map Text Value)
+      }
+  deriving (Eq, Ord, Show)
 
 instance ToJSON Suppression where
   toJSON MkSuppression {..} =
