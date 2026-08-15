@@ -19,8 +19,8 @@ module Data.Aeson.Optional (
 --------------------------------------------------------------------------------
 
 import Data.Aeson as Aeson hiding (object, (.=))
-import Data.Aeson.Types (Pair)
 import qualified Data.Aeson as JSON (object)
+import Data.Aeson.Types (Pair)
 import Data.Maybe
 #if !MIN_VERSION_aeson(2,0,0)
 import Data.Text

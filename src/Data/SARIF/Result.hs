@@ -14,7 +14,7 @@ module Data.SARIF.Result (
 
 --------------------------------------------------------------------------------
 
-import Data.Aeson.Optional hiding (Result, Error)
+import Data.Aeson.Optional hiding (Error, Result)
 import Data.Text
 
 import Data.SARIF.Level
