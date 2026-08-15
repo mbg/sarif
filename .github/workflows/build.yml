@@ -35,12 +35,23 @@ jobs:
           fail-on: warning
 
       - name: "Install stylish-haskell"
+        env:
+          STYLISH_HASKELL_REPO: "haskell/stylish-haskell"
+          STYLISH_HASKELL_VERSION: "v0.15.1.0"
         run: |
-          sudo apt-get update && sudo apt-get install stylish-haskell
+          gh release download -R "$STYLISH_HASKELL_REPO" \
+            "$STYLISH_HASKELL_VERSION" \
+            -p "stylish-haskell-$STYLISH_HASKELL_VERSION-linux-x86_64.tar.gz"
+
+          mkdir -p ../stylish-haskell
+          tar -xvf \
+            "stylish-haskell-$STYLISH_HASKELL_VERSION-linux-x86_64.tar.gz" \
+            -C ../stylish-haskell \
+            --strip-components=1
 
       - name: "Run stylish-haskell"
         run: |
-          stylish-haskell -i src/**/*.hs
+          ../stylish-haskell/stylish-haskell -i src/**/*.hs
 
       - name: "Diff source files"
         run: |
