@@ -67,6 +67,7 @@ jobs:
           - stack-ghc-8.10.7
           - stack-ghc-9.0.2
           - stack-ghc-9.2.5
+          - stack-ghc-9.10
 
     runs-on: ubuntu-latest
 
@@ -74,9 +75,11 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@v7
+      - name: "Checkout repository"
+        uses: actions/checkout@v7
 
-      - uses: haskell/actions/setup@v2
+      - name: "Install Haskell"
+        uses: haskell/actions/setup@v2
         id: install-haskell
         with:
           stack-no-global: true
