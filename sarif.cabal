@@ -1,11 +1,11 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.38.3.
+-- This file has been generated from package.yaml by hpack version 0.39.6.
 --
 -- see: https://github.com/sol/hpack
 
 name:           sarif
-version:        0.1
+version:        0.2
 synopsis:       SARIF implementation for Haskell
 description:    Provides types and JSON instances for the Static Analysis Results Interchange Format (SARIF).
 category:       Data

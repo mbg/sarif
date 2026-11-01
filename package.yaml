@@ -1,5 +1,5 @@
 name: sarif
-version: 0.1
+version: "0.2"
 github: "mbg/sarif"
 license: MIT
 author: "Michael B. Gale"
@@ -28,7 +28,7 @@ dependencies:
   - containers
   - text
   - uuid-types
-  - time 
+  - time
 
 library:
   source-dirs: src
